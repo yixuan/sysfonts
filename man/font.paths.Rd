@@ -18,7 +18,8 @@ This function gets/sets the search paths for font files.
 \details{
 Default search paths will be assigned when package is
 loaded: \itemize{ \item For Windows, it is
-\code{\%windir\%\\Fonts}
+\code{\%windir\%\\Fonts}, usually expanded into
+C:\\Windows\\Fonts
 
 \item For Mac OS, default paths are \code{/Library/Fonts}
 and \code{~/Library/Fonts} and their subdirectories

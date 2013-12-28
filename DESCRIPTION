@@ -7,8 +7,8 @@ Author: Yixuan Qiu and authors/contributors of the
     included fonts. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Description: This package uses FreeType to load system fonts
-    into R that can be used by other packages like R2SWF and
-    showtext.
+    into R, mainly used to support other packages like R2SWF
+    and showtext.
 Copyright: see file COPYRIGHTS
 SystemRequirements: zlib, libpng, FreeType
 URL: https://github.com/yixuan/sysfonts

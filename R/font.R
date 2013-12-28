@@ -37,7 +37,8 @@
 #' 
 #' @details Default search paths will be assigned when package is loaded:
 #' \itemize{
-#' \item For Windows, it is \code{\%windir\%\\Fonts}
+#' \item For Windows, it is \code{\%windir\%\\Fonts}, usually expanded
+#'       into C:\\Windows\\Fonts
 #'
 #' \item For Mac OS, default paths are \code{/Library/Fonts}
 #'       and \code{~/Library/Fonts} and their subdirectories
@@ -73,9 +74,9 @@ font.paths = function(new)
 #' 
 #' @return A character vector of available font family names
 #' 
-#' @details By default there are four font families loaded automatically,
-#' i.e., "sans", "serif", "mono". If you want to use other font
-#' families in SWF device, you need to call \code{\link{font.add}()}
+#' @details By default there are three font families loaded automatically,
+#' i.e., "sans", "serif" and "mono". If you want to use other ones,
+#' you need to call \code{\link{font.add}()}
 #' to register new fonts by specifying a family name and corresponding
 #' font file paths. See \code{\link{font.add}()} for details about
 #' what's the meaning of "family name" in this context, as well as
@@ -98,7 +99,6 @@ font.families = function()
 #' 
 #' This function lists font files in the search path that can be
 #' loaded by \code{\link{font.add}()}.
-#'
 #' Currently supported formats are TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
 #' @return A character vector of available font filenames
@@ -166,7 +166,7 @@ font.files = function()
 #'         font family names
 #' 
 #' @details In R graphics device, there are two parameters combined together
-#' to select a font to show texts. \code{par("family")} is a character
+#' to select a font to show text. \code{par("family")} is a character
 #' string giving a name to a \strong{series} of font faces. Here
 #' \strong{series} implies that there may be different fonts with the
 #' same family name, and actually they are distinguished by the parameter

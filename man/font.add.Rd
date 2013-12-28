@@ -32,7 +32,7 @@ fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 }
 \details{
 In R graphics device, there are two parameters combined
-together to select a font to show texts.
+together to select a font to show text.
 \code{par("family")} is a character string giving a name to
 a \strong{series} of font faces. Here \strong{series}
 implies that there may be different fonts with the same
