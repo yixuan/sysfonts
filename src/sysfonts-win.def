@@ -1,0 +1,4 @@
+LIBRARY sysfonts.dll
+EXPORTS
+ loadFont
+ cleanFont

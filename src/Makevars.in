@@ -1,0 +1,14 @@
+PKG_CPPFLAGS = @SYSFONTS_CPPFLAGS@
+PKG_LIBS = @SYSFONTS_LIBS@
+
+
+.PHONY: all clean
+
+all: $(SHLIB)
+
+clean:
+	$(RM) *.o
+	$(RM) *.dll
+	$(RM) *.so
+	$(RM) *.dylib
+
