@@ -19,7 +19,7 @@ This function gets/sets the search paths for font files.
 Default search paths will be assigned when package is
 loaded: \itemize{ \item For Windows, it is
 \code{\%windir\%\\Fonts}, usually expanded into
-C:\\Windows\\Fonts
+\code{C:\\Windows\\Fonts}
 
 \item For Mac OS, default paths are \code{/Library/Fonts}
 and \code{~/Library/Fonts} and their subdirectories
@@ -35,6 +35,6 @@ Yixuan Qiu <\url{http://yixuan.cos.name/}>
 See \code{\link{font.add}()} for details about how
 \pkg{sysfonts} looks for font files. There is also a
 complete example showing the usage of these functions in
-the help page of \code{\link{font.add}()}
+the help page of \code{\link{font.add}()}.
 }
 
