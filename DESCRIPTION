@@ -1,14 +1,18 @@
 Package: sysfonts
 Type: Package
 Title: Loading system fonts into R
-Version: 0.1
-Date: 2013-12-27
+Version: 0.2
+Date: 2014-02-22
 Author: Yixuan Qiu and authors/contributors of the
     included fonts. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Description: This package uses FreeType to load system fonts
-    into R, mainly used to support other packages like R2SWF
+    and Google Fonts(https://www.google.com/fonts) into R,
+    mainly used to support other packages like R2SWF
     and showtext.
+Suggests:
+    RCurl,
+    jsonlite
 Copyright: see file COPYRIGHTS
 SystemRequirements: zlib, libpng, FreeType
 URL: https://github.com/yixuan/sysfonts
