@@ -48,7 +48,9 @@
 .download.file = function(url)
 {
     path = file.path(tempdir(), basename(url));
-    download.file(url, path, quiet = TRUE, mode = "wb");
+    tryCatch(download.file(url, path, quiet = TRUE, mode = "wb"),
+             warning = function(w) NULL,
+             error = function(e) NULL);
     if(!file.exists(path)) stop("failed to download font file");
     return(path);
 }
@@ -60,8 +62,7 @@
 #' This function lists family names of the fonts that are currently
 #' available in Google Fonts. When running this function for the first time, 
 #' it may take a few seconds to fetch the font information database.
-#' This function requires the packages \pkg{RCurl} and \pkg{jsonlite} to be
-#' installed.
+#' This function requires \pkg{RCurl} and \pkg{jsonlite} packages.
 #' 
 #' @return A character vector of available font family names in Google Fonts
 #' 
@@ -88,10 +89,10 @@ font.families.google = function()
 
 #' Download and add Google Fonts
 #' 
-#' This function will search the Google Fonts repository for a specified
+#' This function will search the Google Fonts repository
+#' (\url{http://www.google.com/fonts}) for a specified
 #' family name, download the proper font files and then add them to R.
-#' This function requires the packages \pkg{RCurl} and \pkg{jsonlite} to be
-#' installed.
+#' This function requires \pkg{RCurl} and \pkg{jsonlite} packages.
 #' 
 #' @param name name of the font that will be searched in Google Fonts
 #' @param family family name of the font that will be used in R
@@ -106,7 +107,7 @@ font.families.google = function()
 #'          ("regular", "bold", "italic" and "bold italic",
 #'          but no"symbol").
 #'          If fonts are found and downloaded successfully, they will be
-#'          also added to R with the same family name.
+#'          also added to R with the given family name.
 #' 
 #' @export
 #' 

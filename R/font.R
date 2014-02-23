@@ -149,7 +149,8 @@ font.files = function()
 #' 
 #' This function registers new font families that can be used by package
 #' \pkg{showtext} and the SWF device in package \pkg{R2SWF}.
-#' Currently supported formats are TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
+#' Currently supported formats include but not limited to
+#' TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
 #' @param family a character string of maximum 200-byte size,
 #'               indicating the family name of the fonts you want to add.
