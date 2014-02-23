@@ -13,8 +13,7 @@ This function lists family names of the fonts that are
 currently available in Google Fonts. When running this
 function for the first time, it may take a few seconds to
 fetch the font information database. This function requires
-the packages \pkg{RCurl} and \pkg{jsonlite} to be
-installed.
+\pkg{RCurl} and \pkg{jsonlite} packages.
 }
 \examples{
 \dontrun{

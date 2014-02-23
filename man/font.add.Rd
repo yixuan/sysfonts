@@ -27,8 +27,9 @@ family names
 \description{
 This function registers new font families that can be used
 by package \pkg{showtext} and the SWF device in package
-\pkg{R2SWF}. Currently supported formats are TrueType
-fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
+\pkg{R2SWF}. Currently supported formats include but not
+limited to TrueType fonts(*.ttf, *.ttc) and OpenType
+fonts(*.otf).
 }
 \details{
 In R graphics device, there are two parameters combined

@@ -18,10 +18,11 @@ font.add.google(name, family = name, regular.wt = 400, bold.wt = 700)
   usually 700}
 }
 \description{
-This function will search the Google Fonts repository for a
-specified family name, download the proper font files and
-then add them to R. This function requires the packages
-\pkg{RCurl} and \pkg{jsonlite} to be installed.
+This function will search the Google Fonts repository
+(\url{http://www.google.com/fonts}) for a specified family
+name, download the proper font files and then add them to
+R. This function requires \pkg{RCurl} and \pkg{jsonlite}
+packages.
 }
 \details{
 There are hundreds of open source fonts in the Google Fonts
@@ -31,7 +32,7 @@ the \code{family} argument, and then automatically download
 the font files for all possible font faces ("regular",
 "bold", "italic" and "bold italic", but no"symbol").  If
 fonts are found and downloaded successfully, they will be
-also added to R with the same family name.
+also added to R with the given family name.
 }
 \examples{
 \dontrun{
