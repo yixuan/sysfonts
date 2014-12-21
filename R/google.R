@@ -8,11 +8,19 @@
         return(.pkg.env$.google.db);
     
     ## Else, download it
-    baseurl = "https://www.googleapis.com/webfonts/v1/webfonts";
-    key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o";
-    apiurl = sprintf("%s?key=%s", baseurl, key);
-    ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
-    res = fromJSON(ret, FALSE);
+
+    ## Download from Google API, slow and relying on RCurl
+    # baseurl = "https://www.googleapis.com/webfonts/v1/webfonts";
+    # key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o";
+    # apiurl = sprintf("%s?key=%s", baseurl, key);
+    # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
+
+    ## Download from my own site, faster but not as up-to-date as Google
+    webfonts = url("http://statr.me/files/webfonts");
+    ret = readLines(webfonts);
+    close(webfonts);
+
+    res = jsonlite::fromJSON(ret, FALSE);
     .pkg.env$.google.db = res;
     return(res);
 }
