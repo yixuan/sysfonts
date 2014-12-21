@@ -294,7 +294,7 @@ font.add = function(family,
 # use font.add() to add default fonts
 .add.default.fonts = function()
 {
-    packageStartupMessage("Loading fonts...");
+    # packageStartupMessage("Loading fonts...");
 
     lib.loc = if("sysfonts" %in% loadedNamespaces())
                   dirname(getNamespaceInfo("sysfonts", "path"))
@@ -339,7 +339,7 @@ font.add = function(family,
     lst[["mono"]][["symbol"]] = lst[["serif"]][["italic"]];
     .pkg.env$.font.list = lst;
     
-    packageStartupMessage("Loading fonts finished");
+    # packageStartupMessage("Loading fonts finished");
     
     invisible(NULL);
 }
