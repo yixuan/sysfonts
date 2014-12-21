@@ -55,6 +55,9 @@
 # download font file and return the path of destination
 .download.file = function(url)
 {
+    # Use proxy instead of the original link address
+    url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
+    
     path = file.path(tempdir(), basename(url));
     tryCatch(download.file(url, path, quiet = TRUE, mode = "wb"),
              warning = function(w) NULL,
