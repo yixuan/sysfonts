@@ -11,7 +11,6 @@ Description: This package uses FreeType to load system fonts
     mainly used to support other packages like R2SWF
     and showtext.
 Suggests:
-    RCurl,
     jsonlite
 Copyright: see file COPYRIGHTS
 SystemRequirements: zlib, libpng, FreeType

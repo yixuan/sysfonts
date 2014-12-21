@@ -73,7 +73,7 @@
 #' This function lists family names of the fonts that are currently
 #' available in Google Fonts. When running this function for the first time, 
 #' it may take a few seconds to fetch the font information database.
-#' This function requires \pkg{RCurl} and \pkg{jsonlite} packages.
+#' This function requires the \pkg{jsonlite} package.
 #' 
 #' @return A character vector of available font family names in Google Fonts
 #' 
@@ -89,8 +89,6 @@
 #' 
 font.families.google = function()
 {
-    if(!require("RCurl"))
-        stop("cannot load 'RCurl' package");
     if(!require("jsonlite"))
         stop("cannot load 'jsonlite' package");
     
@@ -103,7 +101,7 @@ font.families.google = function()
 #' This function will search the Google Fonts repository
 #' (\url{http://www.google.com/fonts}) for a specified
 #' family name, download the proper font files and then add them to R.
-#' This function requires \pkg{RCurl} and \pkg{jsonlite} packages.
+#' This function requires the \pkg{jsonlite} package.
 #' 
 #' @param name name of the font that will be searched in Google Fonts
 #' @param family family name of the font that will be used in R
@@ -148,8 +146,6 @@ font.families.google = function()
 font.add.google = function(name, family = name, regular.wt = 400,
                            bold.wt = 700)
 {
-    if(!require("RCurl"))
-        stop("cannot load 'RCurl' package");
     if(!require("jsonlite"))
         stop("cannot load 'jsonlite' package");
     
