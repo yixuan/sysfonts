@@ -1,8 +1,19 @@
+      CHANGES IN sysfonts VERSION 0.3
+
+NEW FEATURES
+
+    o No longer prints messages at start-up.
+    o Has faster loading of Google Fonts list.
+
+
+
+
+
       CHANGES IN sysfonts VERSION 0.2
 
 NEW FEATURES
 
-    o Now can add font from Google Fonts. 
+    o Now can add font from Google Fonts.
 
 
 
@@ -12,4 +23,4 @@ NEW FEATURES
 
 NEW FEATURES
 
-    o Initial release. 
+    o Initial release.
