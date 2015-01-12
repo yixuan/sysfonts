@@ -1,3 +1,14 @@
+      CHANGES IN sysfonts VERSION 0.4
+
+BUG FIXES
+
+    o Fixed a problem reported by Philippe Massicotte involving
+      incomplete downloading of font files.
+
+
+
+
+
       CHANGES IN sysfonts VERSION 0.3
 
 NEW FEATURES
