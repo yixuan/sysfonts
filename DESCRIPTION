@@ -10,7 +10,7 @@ Description: This package uses FreeType to load system fonts
     and Google Fonts (https://www.google.com/fonts) into R.
     It is supposed to support other packages like R2SWF
     and showtext.
-Suggests: jsonlite
+Suggests: RCurl, jsonlite
 Copyright: see file COPYRIGHTS
 SystemRequirements: zlib, libpng, FreeType
 URL: https://github.com/yixuan/sysfonts
