@@ -13,7 +13,7 @@ A character vector of available font family names in Google Fonts
 This function lists family names of the fonts that are currently
 available in Google Fonts. When running this function for the first time,
 it may take a few seconds to fetch the font information database.
-This function requires the \pkg{jsonlite} package.
+This function requires the \pkg{jsonlite} and \pkg{RCurl} packages.
 }
 \examples{
 \dontrun{

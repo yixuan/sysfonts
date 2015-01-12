@@ -108,9 +108,9 @@ font.families.google = function()
 #' @param regular.wt font weight for the regular font face, usually 400
 #' @param bold.wt font weight for the bold font face, usually 700
 #' @param repo the site to download fonts from. "google" indicates
-#'             downloading from original Google Fonts repository.
+#'             downloading from the original Google Fonts repository.
 #'             "useso" indicates downloading from a proxy server
-#'             provided by \url{fonts.useso.com}. If the default
+#'             provided by \url{http://fonts.useso.com}. If the default
 #'             choice "google" fails, try to set \code{repo = "useso"}
 #' 
 #' @details There are hundreds of open source fonts in the Google Fonts

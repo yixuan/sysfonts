@@ -4,7 +4,8 @@
 \alias{font.add.google}
 \title{Download and add Google Fonts}
 \usage{
-font.add.google(name, family = name, regular.wt = 400, bold.wt = 700)
+font.add.google(name, family = name, regular.wt = 400, bold.wt = 700,
+  repo = c("google", "useso"))
 }
 \arguments{
 \item{name}{name of the font that will be searched in Google Fonts}
@@ -14,12 +15,18 @@ font.add.google(name, family = name, regular.wt = 400, bold.wt = 700)
 \item{regular.wt}{font weight for the regular font face, usually 400}
 
 \item{bold.wt}{font weight for the bold font face, usually 700}
+
+\item{repo}{the site to download fonts from. "google" indicates
+            downloading from the original Google Fonts repository.
+            "useso" indicates downloading from a proxy server
+            provided by \url{http://fonts.useso.com}. If the default
+            choice "google" fails, try to set \code{repo = "useso"}}
 }
 \description{
 This function will search the Google Fonts repository
 (\url{http://www.google.com/fonts}) for a specified
 family name, download the proper font files and then add them to R.
-This function requires the \pkg{jsonlite} package.
+This function requires the \pkg{jsonlite} and \pkg{RCurl} packages.
 }
 \details{
 There are hundreds of open source fonts in the Google Fonts
