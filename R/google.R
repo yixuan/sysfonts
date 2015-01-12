@@ -52,12 +52,13 @@
 }
 
 # download font file and return the path of destination
-.download.file = function(url)
+.download.file = function(url, repo)
 {
     ## we need to use RCurl package here
     
     # Use proxy instead of the original link address
-    url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
+    if(repo == "useso")
+        url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
     
     path = file.path(tempdir(), basename(url));
     f = RCurl::CFILE(path, mode = "wb");
@@ -106,6 +107,11 @@ font.families.google = function()
 #' @param family family name of the font that will be used in R
 #' @param regular.wt font weight for the regular font face, usually 400
 #' @param bold.wt font weight for the bold font face, usually 700
+#' @param repo the site to download fonts from. "google" indicates
+#'             downloading from original Google Fonts repository.
+#'             "useso" indicates downloading from a proxy server
+#'             provided by \url{fonts.useso.com}. If the default
+#'             choice "google" fails, try to set \code{repo = "useso"}
 #' 
 #' @details There are hundreds of open source fonts in the Google Fonts
 #'          repository (\url{http://www.google.com/fonts}).
@@ -143,9 +149,11 @@ font.families.google = function()
 #' 
 #' }
 font.add.google = function(name, family = name, regular.wt = 400,
-                           bold.wt = 700)
+                           bold.wt = 700, repo = c("google", "useso"))
 {   
-    name = as.character(name);
+    name = as.character(name)[1];
+    family = as.character(family)[1];
+    repo = as.character(repo)[1];
     
     db = .google.font.db();
     ind = .search.db(name);
@@ -168,19 +176,19 @@ font.add.google = function(name, family = name, regular.wt = 400,
     if(is.null(r.url))
         stop(sprintf("regular(weight=%d) variant of '%s' font not found",
                      regular.wt, name));
-    r.file = .download.file(r.url);
+    r.file = .download.file(r.url, repo);
     
     ## download bold font face
     b.url = font$files[[bold]];
-    b.file = if(is.null(b.url)) NULL else .download.file(b.url);
+    b.file = if(is.null(b.url)) NULL else .download.file(b.url, repo);
     
     ## download italic font face
     i.url = font$files[[italic]];
-    i.file = if(is.null(i.url)) NULL else .download.file(i.url);
+    i.file = if(is.null(i.url)) NULL else .download.file(i.url, repo);
     
     ## download bold-italic font face
     bi.url = font$files[[bolditalic]];
-    bi.file = if(is.null(bi.url)) NULL else .download.file(bi.url);
+    bi.file = if(is.null(bi.url)) NULL else .download.file(bi.url, repo);
 
     font.add(family, r.file, b.file, i.file, bi.file);
 }
