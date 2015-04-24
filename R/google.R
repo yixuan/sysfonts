@@ -18,7 +18,8 @@
     # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
 
     ## Download from my own site, faster but not as up-to-date as Google
-    doc = RCurl::getURL("http://statr.me/files/webfonts");
+    doc = tempfile()
+    download.file("http://statr.me/files/webfonts", doc);
     res = jsonlite::fromJSON(doc, FALSE);
     .pkg.env$.google.db = res;
     return(res);
