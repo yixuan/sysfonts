@@ -7,7 +7,7 @@
     
     ## If database already exists, return it
     if(!is.null(.pkg.env$.google.db))
-        return(.pkg.env$.google.db);
+        return(.pkg.env$.google.db)
     
     ## Else, download it
 
@@ -18,11 +18,29 @@
     # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
 
     ## Download from my own site, faster but not as up-to-date as Google
-    doc = tempfile()
-    download.file("http://statr.me/files/webfonts", doc);
-    res = jsonlite::fromJSON(doc, FALSE);
-    .pkg.env$.google.db = res;
-    return(res);
+    db = paste(tempfile(), ".tar.gz", sep = "")
+    db = tryCatch(
+    
+    ## First try to download the database
+    {
+        utils::download.file("http://statr.me/files/webfonts.tar.gz", db,
+                             quiet = TRUE, mode = "wb")
+        db
+    },
+    
+    ## If not successful, use the built-in one
+    error = function(e) {
+        system.file("fonts", "webfonts.tar.gz", package = "sysfonts")
+    }
+    
+    )
+    
+    con = gzfile(db)
+    font_list = readLines(con)
+    close(con)
+    res = jsonlite::fromJSON(font_list, FALSE)
+    .pkg.env$.google.db = res
+    return(res)
 }
 
 .google.font.list = function()
