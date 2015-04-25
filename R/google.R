@@ -18,24 +18,24 @@
     # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
 
     ## Download from my own site, faster but not as up-to-date as Google
-    db = paste(tempfile(), ".tar.gz", sep = "")
+    db = paste(tempfile(), ".bz2", sep = "")
     db = tryCatch(
     
     ## First try to download the database
     {
-        utils::download.file("http://statr.me/files/webfonts.tar.gz", db,
+        utils::download.file("http://statr.me/files/webfonts.bz2", db,
                              quiet = TRUE, mode = "wb")
         db
     },
     
     ## If not successful, use the built-in one
     error = function(e) {
-        system.file("fonts", "webfonts.tar.gz", package = "sysfonts")
+        system.file("fonts", "webfonts.bz2", package = "sysfonts")
     }
     
     )
     
-    con = gzfile(db)
+    con = bzfile(db, "rb")
     font_list = readLines(con)
     close(con)
     res = jsonlite::fromJSON(font_list, FALSE)
