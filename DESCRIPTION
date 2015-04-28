@@ -6,7 +6,7 @@ Date: 2015-04-24
 Author: Yixuan Qiu and authors/contributors of the
     included fonts. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
-Description: Using FreeType to load system fonts
+Description: Using 'FreeType' to load system fonts
     and Google Fonts (https://www.google.com/fonts) into R.
     It is supposed to support other packages such as 'R2SWF'
     and 'showtext'.
