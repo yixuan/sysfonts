@@ -125,7 +125,7 @@ font.files = function()
     {
         if(file.info(path)$isdir) {
             stop(sprintf("file path for '%s' shouldn't be a directory", type));
-        } else return(path);
+        } else return(normalizePath(path));
     }
     
     # If it doesn't exist, search the file in the search paths
