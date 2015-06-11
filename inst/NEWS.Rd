@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.6}{
+  \itemize{
+    \item \code{font.add()} now supports tilde path expansion,
+          for example \code{font.add("xkcd", "~/xkcd.ttf")},
+          thanks to \href{https://github.com/r2evans}{@r2evans}
+  }
+}
+
 \section{Changes in sysfonts version 0.5}{
   \itemize{
     \item More robust way to fecth font list
