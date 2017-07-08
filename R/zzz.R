@@ -1,11 +1,11 @@
-.onLoad <- function(libname, pkgname) {
-    library.dynam("sysfonts", pkgname, libname);
-    .add.default.font.paths();
-    .add.default.fonts();
+.onLoad = function(libname, pkgname) {
+    library.dynam("sysfonts", pkgname, libname)
+    add_default_font_paths()
+    add_default_fonts()
 }
 
-.onUnload <- function(libpath) {
-    .clean.fonts();
-    library.dynam.unload("sysfonts", libpath);
+.onUnload = function(libpath) {
+    clean_fonts()
+    library.dynam.unload("sysfonts", libpath)
 }
 

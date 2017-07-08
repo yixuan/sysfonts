@@ -1,40 +1,51 @@
 # Environment to store several important variables
-.pkg.env = new.env();
+# Note that the name of this variable should not be changed,
+# since showtext relies on the name to find this variable.
+.pkg.env = new.env()
+
 # Current font list, a list of pointers to freetype structures
-.pkg.env$.font.list = list();
+# The name of this variable should not be changed, since showtext
+# relies on the name to find this variable.
+.pkg.env$.font.list = list()
+
 # All fonts previously added, used to free memories when exiting
-.pkg.env$.font.list.all = list();
+.pkg.env$.font.list.all = list()
+
 # Font search path
-.pkg.env$.font.path = character(0);
+.pkg.env$.font.path = character(0)
 
 # Add default font search paths
-.add.default.font.paths = function()
+add_default_font_paths = function()
 {
     if(.Platform$OS.type == "windows") {
-        path = normalizePath(file.path(Sys.getenv("windir"), "Fonts"));
+        path = normalizePath(file.path(Sys.getenv("windir"), "Fonts"))
     } else if(.Platform$OS.type == "unix") {
         if(Sys.info()["sysname"] == "Darwin")
         {
             path = list.dirs(c("/Library/Fonts",
-                               "~/Library/Fonts"));
+                               "~/Library/Fonts"))
         } else {
             path = list.dirs(c("/usr/share/fonts",
                                "/usr/local/share/fonts",
                                "~/.fonts",
-                               "~/.local/share/fonts"));
+                               "~/.local/share/fonts"))
         }
-    } else stop("unknown OS type");
-    .pkg.env$.font.path = path;
+    } else stop("unknown OS type")
+    
+    .pkg.env$.font.path = path
 }
 
-#' Get/Set font search paths
+#' Get/Set Font Search Paths
 #' 
 #' This function gets/sets the search paths for font files.
+#' See \code{\link{font.add}()} for details about how \pkg{sysfonts} looks for
+#' font files. There is also a complete example showing the usage of these
+#' functions in the help page of \code{\link{font.add}()}.
 #' 
 #' @param new a character vector indicating the search paths to be
 #'        prepended. If the argument is missing, the function will
 #'        return the current search paths.
-#' @return The updated search paths
+#' @return The updated search paths.
 #' 
 #' @details Default search paths will be assigned when package is loaded:
 #' \itemize{
@@ -49,14 +60,9 @@
 #'       \code{~/.local/share/fonts}, and their subdirectories
 #' }
 #' 
-#' @seealso See \code{\link{font.add}()} for details about how
-#'          \pkg{sysfonts} looks for font files. There is also a
-#'          complete example showing the usage of these functions
-#'          in the help page of \code{\link{font.add}()}.
-#' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 font.paths = function(new)
 {
     if(!missing(new))
@@ -291,69 +297,63 @@ font.add = function(family,
     invisible(font.families());
 }
 
-# use font.add() to add default fonts
-.add.default.fonts = function()
+# Use font.add() to add default fonts
+add_default_fonts = function()
 {
-    # packageStartupMessage("Loading fonts...");
+    # packageStartupMessage("Loading fonts...")
 
     lib.loc = if("sysfonts" %in% loadedNamespaces())
                   dirname(getNamespaceInfo("sysfonts", "path"))
-              else NULL;
+              else NULL
+    
+    default_fonts_path = function(family, face)
+    {
+        system.file("fonts", sprintf("Liberation%s-%s.ttf", family, face),
+                    package = "sysfonts", lib.loc = lib.loc)
+    }
 
-    sans.r = system.file("fonts", "LiberationSans-Regular.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    sans.b = system.file("fonts", "LiberationSans-Bold.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    sans.i = system.file("fonts", "LiberationSans-Italic.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    sans.bi = system.file("fonts", "LiberationSans-BoldItalic.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
+    sans.r   = default_fonts_path("Sans",  "Regular")
+    sans.b   = default_fonts_path("Sans",  "Bold")
+    sans.i   = default_fonts_path("Sans",  "Italic")
+    sans.bi  = default_fonts_path("Sans",  "BoldItalic")
     
-    serif.r = system.file("fonts", "LiberationSerif-Regular.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
-    serif.b = system.file("fonts", "LiberationSerif-Bold.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
-    serif.i = system.file("fonts", "LiberationSerif-Italic.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
-    serif.bi = system.file("fonts", "LiberationSerif-BoldItalic.ttf",
-                           package = "sysfonts", lib.loc = lib.loc);
+    serif.r  = default_fonts_path("Serif", "Regular")
+    serif.b  = default_fonts_path("Serif", "Bold")
+    serif.i  = default_fonts_path("Serif", "Italic")
+    serif.bi = default_fonts_path("Serif", "BoldItalic")
     
-    mono.r = system.file("fonts", "LiberationMono-Regular.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    mono.b = system.file("fonts", "LiberationMono-Bold.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    mono.i = system.file("fonts", "LiberationMono-Italic.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    mono.bi = system.file("fonts", "LiberationMono-BoldItalic.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
+    mono.r   = default_fonts_path("Mono",  "Regular")
+    mono.b   = default_fonts_path("Mono",  "Bold")
+    mono.i   = default_fonts_path("Mono",  "Italic")
+    mono.bi  = default_fonts_path("Mono",  "BoldItalic")
     
-    font.add("sans", sans.r, sans.b, sans.i, sans.bi, NULL);
-    font.add("serif", serif.r, serif.b, serif.i, serif.bi, NULL);
-    font.add("mono", mono.r, mono.b, mono.i, mono.bi, NULL);
+    font.add("sans",  sans.r,  sans.b,  sans.i,  sans.bi,  NULL)
+    font.add("serif", serif.r, serif.b, serif.i, serif.bi, NULL)
+    font.add("mono",  mono.r,  mono.b,  mono.i,  mono.bi,  NULL)
     
     # We do some "hacks" here. For default families(sans, serif, mono),
     # we want to set their symbol fonts to be serif-italic
-    lst = .pkg.env$.font.list;
-    lst[["sans"]][["symbol"]] = lst[["serif"]][["italic"]];
-    lst[["serif"]][["symbol"]] = lst[["serif"]][["italic"]];
-    lst[["mono"]][["symbol"]] = lst[["serif"]][["italic"]];
-    .pkg.env$.font.list = lst;
+    lst = .pkg.env$.font.list
+    lst[["sans"]][["symbol"]]  = lst[["serif"]][["italic"]]
+    lst[["serif"]][["symbol"]] = lst[["serif"]][["italic"]]
+    lst[["mono"]][["symbol"]]  = lst[["serif"]][["italic"]]
+    .pkg.env$.font.list = lst
     
-    # packageStartupMessage("Loading fonts finished");
+    # packageStartupMessage("Loading fonts finished")
     
-    invisible(NULL);
+    invisible(NULL)
 }
 
 # Free memories when exiting
-.clean.fonts = function()
+clean_fonts = function()
 {
-    lst = unique(unlist(.pkg.env$.font.list.all));
+    lst = unique(unlist(.pkg.env$.font.list.all))
     for(i in seq_along(lst))
     {
-        .Call("cleanFont", lst[[i]], PACKAGE = "sysfonts");
+        .Call("cleanFont", lst[[i]], PACKAGE = "sysfonts")
     }
-    .pkg.env$.font.list = list();
-    .pkg.env$.font.list.all = list();
-    gc();
-    invisible(NULL);
+    .pkg.env$.font.list = list()
+    .pkg.env$.font.list.all = list()
+    gc()
+    invisible(NULL)
 }
