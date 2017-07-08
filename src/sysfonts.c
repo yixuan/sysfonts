@@ -1,10 +1,10 @@
 #include "sysfonts.h"
 
-SEXP loadFont(SEXP fontPath)
+SEXP load_font(SEXP font_path)
 {
-    const char* filePath = CHAR(STRING_ELT(fontPath, 0));
-    pFontDesc font = (pFontDesc) calloc(1, sizeof(FontDesc));
-    SEXP extPtr;
+    const char* file_path = CHAR(STRING_ELT(font_path, 0));
+    FontDesc* font = (FontDesc*) calloc(1, sizeof(FontDesc));
+    SEXP font_desc_ptr;
     FT_Error err;
     
     err = FT_Init_FreeType(&(font->library));
@@ -13,11 +13,11 @@ SEXP loadFont(SEXP fontPath)
         if(font) free(font);
         Rf_error("freetype: unable to initialize freetype, error code %d", err);
     }
-    err = FT_New_Face(font->library, filePath, 0, &(font->face));
+    err = FT_New_Face(font->library, file_path, 0, &(font->face));
     if(err)
     {
         if(font->library) FT_Done_FreeType(font->library);
-        if(font) free(font);
+        if(font)          free(font);
         switch(err)
         {
             case 0x01:
@@ -35,20 +35,20 @@ SEXP loadFont(SEXP fontPath)
         }
     }
     
-    extPtr = R_MakeExternalPtr(font, R_NilValue, R_NilValue);
-    return extPtr;
+    font_desc_ptr = R_MakeExternalPtr(font, R_NilValue, R_NilValue);
+    
+    return font_desc_ptr;
 }
 
-SEXP cleanFont(SEXP extPtr)
+SEXP clean_font(SEXP font_desc_ptr)
 {
-    pFontDesc font = (pFontDesc) R_ExternalPtrAddr(extPtr);
+    FontDesc* font = (FontDesc*) R_ExternalPtrAddr(font_desc_ptr);
 
     if(!font) return R_NilValue;
     
-    if(font->face) FT_Done_Face(font->face);
+    if(font->face)    FT_Done_Face(font->face);
     if(font->library) FT_Done_FreeType(font->library);
-    if(font) free(font);
+    if(font)          free(font);
     
     return R_NilValue;
 }
-

@@ -13,10 +13,8 @@ typedef struct fontDesc {
     FT_Face face;
 } FontDesc;
 
-typedef FontDesc* pFontDesc;
-
-SEXP loadFont(SEXP fontPath);
-SEXP cleanFont(SEXP extPtr);
+SEXP load_font(SEXP font_path);
+SEXP clean_font(SEXP font_desc_ptr);
 
 #endif /* SYSFONTS_H_INCLUDED */
 
