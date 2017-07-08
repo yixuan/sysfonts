@@ -7,7 +7,7 @@ Author: Yixuan Qiu and authors/contributors of the
     included fonts. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Description: Loading system fonts and Google Fonts
-    (https://fonts.google.com/) into R, in order to
+    <https://fonts.google.com/> into R, in order to
     support other packages such as 'R2SWF' and 'showtext'.
 Suggests: curl, jsonlite
 Copyright: see file COPYRIGHTS
