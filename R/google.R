@@ -1,9 +1,9 @@
 ## Object to store the Google Fonts database
-.pkg.env$.google.db = NULL;
+.pkg.env$.google.db = NULL
 
-.google.font.db = function()
+google_font_db = function()
 {
-    ## we need to use packages jsonlite and RCurl here
+    ## We need to use packages jsonlite and curl here
     
     ## If database already exists, return it
     if(!is.null(.pkg.env$.google.db))
@@ -11,11 +11,11 @@
     
     ## Else, download it
 
-    ## Download from Google API, slow and relying on RCurl
-    # baseurl = "https://www.googleapis.com/webfonts/v1/webfonts";
-    # key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o";
-    # apiurl = sprintf("%s?key=%s", baseurl, key);
-    # ret = getURLContent(apiurl, ssl.verifypeer = FALSE);
+    ## Download from Google API, slow and relying on curl
+    # baseurl = "https://www.googleapis.com/webfonts/v1/webfonts"
+    # key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o"
+    # apiurl = sprintf("%s?key=%s", baseurl, key)
+    # ret = curl::curl_fetch_memory(apiurl)
 
     ## Download from my own site, faster but not as up-to-date as Google
     db = paste(tempfile(), ".bz2", sep = "")
@@ -40,52 +40,50 @@
     close(con)
     res = jsonlite::fromJSON(font_list, FALSE)
     .pkg.env$.google.db = res
-    return(res)
+    
+    res
 }
 
-.google.font.list = function()
+google_font_list = function()
 {
-    db = .google.font.db();
-    family = sapply(db[[2]], function(x) x$family);
-    category = sapply(db[[2]], function(x) x$category);
-    return(data.frame(family = family, category = category,
-                      stringsAsFactors = FALSE));
+    db = google_font_db()
+    family = sapply(db[[2]], function(x) x$family)
+    category = sapply(db[[2]], function(x) x$category)
+    
+    data.frame(family = family, category = category,
+               stringsAsFactors = FALSE)
 }
 
-.search.db = function(family)
+search_db = function(family)
 {
-    gflist = .google.font.list();
-    gffamily = gflist$family;
-    ind = grep(sprintf("^%s$", family), gffamily, ignore.case = TRUE);
+    gflist = google_font_list()
+    
+    gffamily = gflist$family
+    ind = grep(sprintf("^%s$", family), gffamily, ignore.case = TRUE)
     if(!length(ind))
     {
-        ind = grep(family, gffamily, ignore.case = TRUE);
+        ind = grep(family, gffamily, ignore.case = TRUE)
         if(length(ind))
         {
-            cat("Do you mean one of the following font(s)?\n");
-            cat(paste("  ", gffamily[ind], collapse = "\n"), "\n");
+            cat("Do you mean one of the following font(s)?\n")
+            cat(paste("  ", gffamily[ind], collapse = "\n"), "\n")
         }
-        stop("font not found");
+        stop("font not found")
     }
-    return(ind);
+    
+    ind
 }
 
-# download font file and return the path of destination
-.download.file = function(url, repo)
+# Download font file and return the path of destination
+download_font_file = function(url, repo = "http://fonts.gstatic.com/")
 {
-    ## we need to use RCurl package here
+    ## We need to use curl package here
+    url = gsub("http://fonts.gstatic.com/", repo, url)
     
-    # Use proxy instead of the original link address
-    if(repo == "useso")
-        url = gsub("fonts\\.gstatic\\.com", "fontstatic\\.useso\\.com", url);
+    dest = file.path(tempdir(), basename(url))
+    curl::curl_download(url, dest)
     
-    path = file.path(tempdir(), basename(url));
-    f = RCurl::CFILE(path, mode = "wb");
-    ret = RCurl::curlPerform(url = url, writedata = f@ref);
-    RCurl::close(f);
-
-    if(ret) stop("failed to download font file");
-    return(path);
+    dest
 }
 
 
