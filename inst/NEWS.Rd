@@ -6,6 +6,7 @@
     \itemize{
       \item Updated the included Liberation fonts to version 1.07.4.
       \item Updated Google Fonts database.
+      \item \pkg{sysfonts} now uses the \pkg{curl} package to fetch Google Fonts files.
     }
   }
   \subsection{BUG FIXES}{
