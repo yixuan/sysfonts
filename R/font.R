@@ -1,40 +1,51 @@
 # Environment to store several important variables
-.pkg.env = new.env();
+# Note that the name of this variable should not be changed,
+# since showtext relies on the name to find this variable.
+.pkg.env = new.env()
+
 # Current font list, a list of pointers to freetype structures
-.pkg.env$.font.list = list();
+# The name of this variable should not be changed, since showtext
+# relies on the name to find this variable.
+.pkg.env$.font.list = list()
+
 # All fonts previously added, used to free memories when exiting
-.pkg.env$.font.list.all = list();
+.pkg.env$.font.list.all = list()
+
 # Font search path
-.pkg.env$.font.path = character(0);
+.pkg.env$.font.path = character(0)
 
 # Add default font search paths
-.add.default.font.paths = function()
+add_default_font_paths = function()
 {
     if(.Platform$OS.type == "windows") {
-        path = normalizePath(file.path(Sys.getenv("windir"), "Fonts"));
+        path = normalizePath(file.path(Sys.getenv("windir"), "Fonts"))
     } else if(.Platform$OS.type == "unix") {
         if(Sys.info()["sysname"] == "Darwin")
         {
             path = list.dirs(c("/Library/Fonts",
-                               "~/Library/Fonts"));
+                               "~/Library/Fonts"))
         } else {
             path = list.dirs(c("/usr/share/fonts",
                                "/usr/local/share/fonts",
                                "~/.fonts",
-                               "~/.local/share/fonts"));
+                               "~/.local/share/fonts"))
         }
-    } else stop("unknown OS type");
-    .pkg.env$.font.path = path;
+    } else stop("unknown OS type")
+    
+    .pkg.env$.font.path = path
 }
 
-#' Get/Set font search paths
+#' Get/Set Font Search Paths
 #' 
 #' This function gets/sets the search paths for font files.
+#' See \code{\link{font.add}()} for details about how \pkg{sysfonts} looks for
+#' font files. There is also a complete example showing the usage of these
+#' functions in the help page of \code{\link{font.add}()}.
 #' 
 #' @param new a character vector indicating the search paths to be
 #'        prepended. If the argument is missing, the function will
 #'        return the current search paths.
-#' @return The updated search paths
+#' @return The updated search paths.
 #' 
 #' @details Default search paths will be assigned when package is loaded:
 #' \itemize{
@@ -49,104 +60,96 @@
 #'       \code{~/.local/share/fonts}, and their subdirectories
 #' }
 #' 
-#' @seealso See \code{\link{font.add}()} for details about how
-#'          \pkg{sysfonts} looks for font files. There is also a
-#'          complete example showing the usage of these functions
-#'          in the help page of \code{\link{font.add}()}.
-#' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 font.paths = function(new)
 {
     if(!missing(new))
     {
-        new = path.expand(new);
-        paths = unique(normalizePath(c(new, .pkg.env$.font.path)));
-        .pkg.env$.font.path = paths;
+        new = path.expand(new)
+        paths = unique(normalizePath(c(new, .pkg.env$.font.path)))
+        .pkg.env$.font.path = paths
     }
-    return(.pkg.env$.font.path);
+    
+    .pkg.env$.font.path
 }
 
-#' List available font families loaded by sysfonts
+#' List Font Families Loaded by 'sysfonts'
 #' 
 #' This function lists font families currently available that can be
 #' used by \pkg{R2SWF} and \pkg{showtext} packages.
 #' 
-#' @return A character vector of available font family names
+#' @return A character vector of available font family names.
 #' 
 #' @details By default there are three font families loaded automatically,
-#' i.e., "sans", "serif" and "mono". If you want to use other ones,
-#' you need to call \code{\link{font.add}()}
+#' i.e., "sans", "serif" and "mono". If one wants to use other fonts,
+#' \code{\link{font.add}()} needs to be called
 #' to register new fonts by specifying a family name and corresponding
-#' font file paths. See \code{\link{font.add}()} for details about
-#' what's the meaning of "family name" in this context, as well as
+#' font files. See \code{\link{font.add}()} for details about
+#' the meaning of "family name" in this context, as well as
 #' a complete example of registering and using a new font.
 #' 
 #' @seealso \code{\link{font.add}()}
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples font.families()
 #' 
 font.families = function()
 {
-    return(names(.pkg.env$.font.list));
+    names(.pkg.env$.font.list)
 }
 
-#' List available font files in the search path
+#' List Font Files Available in the Search Paths
 #' 
 #' This function lists font files in the search path that can be
 #' loaded by \code{\link{font.add}()}.
-#' Currently supported formats are TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
+#' Currently supported formats include TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
-#' @return A character vector of available font filenames
+#' @return A character vector of font filenames.
 #' 
 #' @seealso \code{\link{font.paths}()}, \code{\link{font.add}()}
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples font.files()
 #' 
 font.files = function()
 {
-    return(list.files(font.paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE));
+    list.files(font.paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE)
 }
 
 # Check whether a specified path points to a font file
-.check.font.path = function(path, type)
+check_font_path = function(path, type)
 {
     # If it really exists
-    if(file.exists(path))
-    {
-        if(file.info(path)$isdir) {
-            stop(sprintf("file path for '%s' shouldn't be a directory", type));
-        } else return(normalizePath(path));
-    }
+    if(file.exists(path) && !file.info(path)$isdir)
+        return(normalizePath(path))
     
     # If it doesn't exist, search the file in the search paths
-    filename = basename(path);
-    search.paths = font.paths();
-    found = FALSE;
-    for(dir in search.paths)
+    filename = basename(path)
+    search_paths = font.paths()
+    found = FALSE
+    for(dir in search_paths)
     {
-        path = file.path(dir, filename);
-        if(file.exists(path) & !file.info(path)$isdir)
+        path = file.path(dir, filename)
+        if(file.exists(path) && !file.info(path)$isdir)
         {
-            found = TRUE;
-            break;
+            found = TRUE
+            break
         }
     }
-    if(!found) stop(sprintf("font file not found for '%s' type", type));
+    if(!found) stop(sprintf("font file not found for '%s' type", type))
     
-    return(normalizePath(path));
+    normalizePath(path)
 }
 
-#' Add new font families
+#' Add New Font Families to 'sysfonts'
 #' 
 #' This function registers new font families that can be used by package
 #' \pkg{showtext} and the SWF device in package \pkg{R2SWF}.
@@ -154,7 +157,7 @@ font.files = function()
 #' TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
 #' @param family a character string of maximum 200-byte size,
-#'               indicating the family name of the fonts you want to add.
+#'               indicating the family name of the font.
 #'               See "Details" for further explanation.
 #' @param regular path of the font file for "regular" font face.
 #'                This argument must be specified as a character string
@@ -164,25 +167,25 @@ font.files = function()
 #'             argument \code{regular}.
 #' @param italic,bolditalic,symbol ditto
 #' 
-#' @return A character vector (invisible) of current available
-#'         font family names
+#' @return A character vector (invisible) of currently available
+#'         font family names.
 #' 
 #' @details In R graphics device, there are two parameters combined together
 #' to select a font to show text. \code{par("family")} is a character
 #' string giving a name to a \strong{series} of font faces. Here
 #' \strong{series} implies that there may be different fonts with the
 #' same family name, and actually they are distinguished by the parameter
-#' \code{par("font")}, indicating whether it is regular, bold or italic,
+#' \code{par("font")}, indicating whether it is regular, bold, or italic,
 #' etc. In R, \code{par("font")} is an integer from 1 to 5 representing
-#' regular, bold, italic, bold italic and symbol respectively.
+#' regular, bold, italic, bold italic, and symbol, respectively.
 #' 
-#' In \pkg{sysfonts} package, there are three default font families, sans, serif and mono,
-#' along with those 5 font faces, that can be used immediately. If you want
-#' to use other font families, you could call \code{font.add()} to register
-#' new fonts. Notice that the \code{family} argument in this function can be
-#' an arbitrary string which doesn't need to be the real font name. You will
-#' use the specified family name in functions like \code{par(family = "myfont")}
-#' and \code{text("Some text", family = "myfont")}. The "Examples" section
+#' In \pkg{sysfonts} package, there are three default font families, sans, serif, and mono,
+#' each with five font faces as mentioned above. If one wants
+#' to use other font families, the function \code{font.add()} needs to be called
+#' to register new fonts. Note that the \code{family} argument in this function can be
+#' an arbitrary string that does not need to be the real font name. The specified
+#' family name will be used in functions like \code{par(family = "myfont")}
+#' and \code{text("Some text", family = "myfont")}. The \strong{Examples} section
 #' shows a complete demonstration of the usage.
 #' 
 #' To find the font file of argument \code{regular} (and the same for
@@ -193,11 +196,11 @@ font.files = function()
 #' an error will be issued.
 #' 
 #' @seealso See \code{\link[graphics]{par}()} for explanation of
-#'          the parameters \code{family} and \code{font}
+#'          the parameters \code{family} and \code{font}.
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples \dontrun{
 #' ## Example: download the font file of WenQuanYi Micro Hei,
@@ -251,109 +254,98 @@ font.add = function(family,
                     bolditalic = NULL,
                     symbol = NULL)
 {
-    family = as.character(family)[1];
+    family = as.character(family)[1]
+    
     # Shouldn't modify default fonts
-    if(family %in% c("sans", "serif", "mono") &
-           all(c("sans", "serif", "mono") %in% font.families()))
-        stop("default font families('sans', 'serif', 'mono') cannot be modified");
+    if((family %in% c("sans", "serif", "mono")) &&
+       (all(c("sans", "serif", "mono") %in% font.families())))
+        stop("default font families ('sans', 'serif', 'mono') cannot be modified")
     
     # The maximum length for font family name is 200 bytes
     if(nchar(family, type = "bytes") > 200)
-        stop("family name is too long (max 200 bytes)");
+        stop("family name is too long (max 200 bytes)")
     
-    r = .Call("loadFont", .check.font.path(regular, "regular"),
-              PACKAGE = "sysfonts");
+    r = .Call("loadFont", check_font_path(regular, "regular"), PACKAGE = "sysfonts");
     
     # If other font faces are not specified, use the regular one
     b = if(is.null(bold)) r
-        else .Call("loadFont", .check.font.path(bold, "bold"),
-                   PACKAGE = "sysfonts");
+        else .Call("loadFont", check_font_path(bold, "bold"), PACKAGE = "sysfonts");
     
     i = if(is.null(italic)) r
-        else .Call("loadFont", .check.font.path(italic, "italic"),
-                   PACKAGE = "sysfonts");
+        else .Call("loadFont", check_font_path(italic, "italic"), PACKAGE = "sysfonts");
     
     bi = if(is.null(bolditalic)) r
-         else .Call("loadFont", .check.font.path(bolditalic, "bolditalic"),
-                    PACKAGE = "sysfonts");
+         else .Call("loadFont", check_font_path(bolditalic, "bolditalic"), PACKAGE = "sysfonts");
     
     s = if(is.null(symbol)) r
-        else .Call("loadFont", .check.font.path(symbol, "symbol"),
-                   PACKAGE = "sysfonts");
+        else .Call("loadFont", check_font_path(symbol, "symbol"), PACKAGE = "sysfonts");
     
-    lst = .pkg.env$.font.list;
-    newfamily = list(regular = r, bold = b,
-                     italic = i, bolditalic = bi, symbol = s);
-    lst[[family]] = newfamily;
-    .pkg.env$.font.list = lst;
-    .pkg.env$.font.list.all = c(.pkg.env$.font.list.all, newfamily);
+    lst = .pkg.env$.font.list
+    new_family = list(regular = r, bold = b, italic = i, bolditalic = bi, symbol = s)
+    lst[[family]] = new_family
+    .pkg.env$.font.list = lst
+    .pkg.env$.font.list.all = c(.pkg.env$.font.list.all, new_family)
     
-    invisible(font.families());
+    invisible(font.families())
 }
 
-# use font.add() to add default fonts
-.add.default.fonts = function()
+# Use font.add() to add default fonts
+add_default_fonts = function()
 {
-    # packageStartupMessage("Loading fonts...");
+    # packageStartupMessage("Loading fonts...")
 
     lib.loc = if("sysfonts" %in% loadedNamespaces())
                   dirname(getNamespaceInfo("sysfonts", "path"))
-              else NULL;
+              else NULL
+    
+    default_fonts_path = function(family, face)
+    {
+        system.file("fonts", sprintf("Liberation%s-%s.ttf", family, face),
+                    package = "sysfonts", lib.loc = lib.loc)
+    }
 
-    sans.r = system.file("fonts", "LiberationSans-Regular.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    sans.b = system.file("fonts", "LiberationSans-Bold.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    sans.i = system.file("fonts", "LiberationSans-Italic.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    sans.bi = system.file("fonts", "LiberationSans-BoldItalic.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
+    sans.r   = default_fonts_path("Sans",  "Regular")
+    sans.b   = default_fonts_path("Sans",  "Bold")
+    sans.i   = default_fonts_path("Sans",  "Italic")
+    sans.bi  = default_fonts_path("Sans",  "BoldItalic")
     
-    serif.r = system.file("fonts", "LiberationSerif-Regular.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
-    serif.b = system.file("fonts", "LiberationSerif-Bold.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
-    serif.i = system.file("fonts", "LiberationSerif-Italic.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
-    serif.bi = system.file("fonts", "LiberationSerif-BoldItalic.ttf",
-                           package = "sysfonts", lib.loc = lib.loc);
+    serif.r  = default_fonts_path("Serif", "Regular")
+    serif.b  = default_fonts_path("Serif", "Bold")
+    serif.i  = default_fonts_path("Serif", "Italic")
+    serif.bi = default_fonts_path("Serif", "BoldItalic")
     
-    mono.r = system.file("fonts", "LiberationMono-Regular.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    mono.b = system.file("fonts", "LiberationMono-Bold.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    mono.i = system.file("fonts", "LiberationMono-Italic.ttf",
-                         package = "sysfonts", lib.loc = lib.loc);
-    mono.bi = system.file("fonts", "LiberationMono-BoldItalic.ttf",
-                          package = "sysfonts", lib.loc = lib.loc);
+    mono.r   = default_fonts_path("Mono",  "Regular")
+    mono.b   = default_fonts_path("Mono",  "Bold")
+    mono.i   = default_fonts_path("Mono",  "Italic")
+    mono.bi  = default_fonts_path("Mono",  "BoldItalic")
     
-    font.add("sans", sans.r, sans.b, sans.i, sans.bi, NULL);
-    font.add("serif", serif.r, serif.b, serif.i, serif.bi, NULL);
-    font.add("mono", mono.r, mono.b, mono.i, mono.bi, NULL);
+    font.add("sans",  sans.r,  sans.b,  sans.i,  sans.bi,  NULL)
+    font.add("serif", serif.r, serif.b, serif.i, serif.bi, NULL)
+    font.add("mono",  mono.r,  mono.b,  mono.i,  mono.bi,  NULL)
     
     # We do some "hacks" here. For default families(sans, serif, mono),
     # we want to set their symbol fonts to be serif-italic
-    lst = .pkg.env$.font.list;
-    lst[["sans"]][["symbol"]] = lst[["serif"]][["italic"]];
-    lst[["serif"]][["symbol"]] = lst[["serif"]][["italic"]];
-    lst[["mono"]][["symbol"]] = lst[["serif"]][["italic"]];
-    .pkg.env$.font.list = lst;
+    lst = .pkg.env$.font.list
+    lst[["sans"]][["symbol"]]  = lst[["serif"]][["italic"]]
+    lst[["serif"]][["symbol"]] = lst[["serif"]][["italic"]]
+    lst[["mono"]][["symbol"]]  = lst[["serif"]][["italic"]]
+    .pkg.env$.font.list = lst
     
-    # packageStartupMessage("Loading fonts finished");
+    # packageStartupMessage("Loading fonts finished")
     
-    invisible(NULL);
+    invisible(NULL)
 }
 
 # Free memories when exiting
-.clean.fonts = function()
+clean_fonts = function()
 {
-    lst = unique(unlist(.pkg.env$.font.list.all));
+    lst = unique(unlist(.pkg.env$.font.list.all))
     for(i in seq_along(lst))
     {
-        .Call("cleanFont", lst[[i]], PACKAGE = "sysfonts");
+        .Call("cleanFont", lst[[i]], PACKAGE = "sysfonts")
     }
-    .pkg.env$.font.list = list();
-    .pkg.env$.font.list.all = list();
-    gc();
-    invisible(NULL);
+    .pkg.env$.font.list = list()
+    .pkg.env$.font.list.all = list()
+    gc()
+    invisible(NULL)
 }

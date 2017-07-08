@@ -2,41 +2,64 @@
 \title{News for Package "sysfonts"}
 
 \section{Changes in sysfonts version 0.6}{
-  \itemize{
-    \item \code{font.add()} now supports tilde path expansion,
-          for example \code{font.add("xkcd", "~/xkcd.ttf")},
-          thanks to \href{https://github.com/r2evans}{@r2evans}
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Updated the included Liberation fonts to version 1.07.4.
+      \item Updated Google Fonts database.
+      \item \pkg{sysfonts} now uses the \pkg{curl} package to fetch Google Fonts files.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Added a 'cleanup' script per CRAN policies.
+      \item \code{font.add()} now supports tilde path expansion,
+            for example \code{font.add("xkcd", "~/xkcd.ttf")}
+            (\href{https://github.com/yixuan/sysfonts/issues/1}{#1}),
+            thanks to \href{https://github.com/r2evans}{@r2evans}.
+    }
   }
 }
 
+
 \section{Changes in sysfonts version 0.5}{
-  \itemize{
-    \item More robust way to fecth font list
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item More robust way to fetch font list.
+    }
   }
 }
 
 \section{Changes in sysfonts version 0.4}{
-  \itemize{
-    \item Fixed a problem reported by Philippe Massicotte involving
-          incomplete downloading of font files
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed a problem reported by Philippe Massicotte involving
+            incomplete downloading of font files.
+    }
   }
 }
 
 \section{Changes in sysfonts version 0.3}{
-  \itemize{
-    \item Non longer prints messages at start-up
-    \item Faster loading of Google Fonts list
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item No longer prints message at start-up.
+      \item Now has faster loading of Google Fonts list.
+    }
   }
 }
 
 \section{Changes in sysfonts version 0.2}{
-  \itemize{
-    \item Now can add font from Google Fonts
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item \pkg{sysfonts} can now add fonts from Google Fonts
+            (\url{https://fonts.google.com/}).
+    }
   }
 }
 
 \section{Changes in sysfonts version 0.1}{
-  \itemize{
-    \item Initial release
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Initial release.
+    }
   }
 }
