@@ -1,10 +1,18 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
-\section{Changes in sysfonts version 0.5}{
+\section{Changes in sysfonts version 0.6}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Updated the included Liberation fonts to version 1.07.4.
+      \item Updated Google Fonts database.
+    }
+  }
   \subsection{BUG FIXES}{
     \itemize{
       \item Added a 'cleanup' script per CRAN policies.
+      \item Fixed tilde path expansion in \code{font.add()}
+            (\href{https://github.com/yixuan/sysfonts/issues/1}{#1}).
     }
   }
 }
