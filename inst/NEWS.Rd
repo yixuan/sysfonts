@@ -7,15 +7,16 @@
       \item Updated the included Liberation fonts to version 1.07.4.
       \item Updated Google Fonts database.
       \item \pkg{sysfonts} now uses the \pkg{curl} package to fetch Google Fonts files.
+      \item \code{font.add()} now supports tilde path expansion,
+            for example \code{font.add("xkcd", "~/xkcd.ttf")}
+            (\href{https://github.com/yixuan/sysfonts/issues/1}{#1}),
+            thanks to \href{https://github.com/r2evans}{@r2evans}.
     }
   }
   \subsection{BUG FIXES}{
     \itemize{
       \item Added a 'cleanup' script per CRAN policies.
-      \item \code{font.add()} now supports tilde path expansion,
-            for example \code{font.add("xkcd", "~/xkcd.ttf")}
-            (\href{https://github.com/yixuan/sysfonts/issues/1}{#1}),
-            thanks to \href{https://github.com/r2evans}{@r2evans}.
+      \item Registered native routines per CRAN policies.
     }
   }
 }
