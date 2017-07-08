@@ -67,89 +67,86 @@ font.paths = function(new)
 {
     if(!missing(new))
     {
-        new = path.expand(new);
-        paths = unique(normalizePath(c(new, .pkg.env$.font.path)));
-        .pkg.env$.font.path = paths;
+        new = path.expand(new)
+        paths = unique(normalizePath(c(new, .pkg.env$.font.path)))
+        .pkg.env$.font.path = paths
     }
-    return(.pkg.env$.font.path);
+    
+    .pkg.env$.font.path
 }
 
-#' List available font families loaded by sysfonts
+#' List Font Families Loaded by 'sysfonts'
 #' 
 #' This function lists font families currently available that can be
 #' used by \pkg{R2SWF} and \pkg{showtext} packages.
 #' 
-#' @return A character vector of available font family names
+#' @return A character vector of available font family names.
 #' 
 #' @details By default there are three font families loaded automatically,
-#' i.e., "sans", "serif" and "mono". If you want to use other ones,
-#' you need to call \code{\link{font.add}()}
+#' i.e., "sans", "serif" and "mono". If one wants to use other fonts,
+#' \code{\link{font.add}()} needs to be called
 #' to register new fonts by specifying a family name and corresponding
-#' font file paths. See \code{\link{font.add}()} for details about
-#' what's the meaning of "family name" in this context, as well as
+#' font files. See \code{\link{font.add}()} for details about
+#' the meaning of "family name" in this context, as well as
 #' a complete example of registering and using a new font.
 #' 
 #' @seealso \code{\link{font.add}()}
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples font.families()
 #' 
 font.families = function()
 {
-    return(names(.pkg.env$.font.list));
+    names(.pkg.env$.font.list)
 }
 
-#' List available font files in the search path
+#' List Font Files Available in the Search Paths
 #' 
 #' This function lists font files in the search path that can be
 #' loaded by \code{\link{font.add}()}.
 #' Currently supported formats are TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
-#' @return A character vector of available font filenames
+#' @return A character vector of font filenames.
 #' 
 #' @seealso \code{\link{font.paths}()}, \code{\link{font.add}()}
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples font.files()
 #' 
 font.files = function()
 {
-    return(list.files(font.paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE));
+    list.files(font.paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE)
 }
 
 # Check whether a specified path points to a font file
-.check.font.path = function(path, type)
+check_font_path = function(path, type)
 {
     # If it really exists
-    if(file.exists(path))
-    {
-        if(file.info(path)$isdir) {
-            stop(sprintf("file path for '%s' shouldn't be a directory", type));
-        } else return(path);
-    }
+    if(file.exists(path) && !file.info(path)$isdir)
+        return(normalizePath(path))
     
     # If it doesn't exist, search the file in the search paths
-    filename = basename(path);
-    search.paths = font.paths();
-    found = FALSE;
-    for(dir in search.paths)
+    filename = basename(path)
+    search_paths = font.paths()
+    found = FALSE
+    for(dir in search_paths)
     {
-        path = file.path(dir, filename);
-        if(file.exists(path) & !file.info(path)$isdir)
+        path = file.path(dir, filename)
+        if(file.exists(path) && !file.info(path)$isdir)
         {
-            found = TRUE;
-            break;
+            found = TRUE
+            break
         }
     }
-    if(!found) stop(sprintf("font file not found for '%s' type", type));
+    if(!found) stop(sprintf("font file not found for '%s' type", type))
     
-    return(normalizePath(path));
+    normalizePath(path)
 }
 
 #' Add new font families
