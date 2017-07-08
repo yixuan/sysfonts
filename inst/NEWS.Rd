@@ -4,6 +4,15 @@
 \section{Changes in sysfonts version 0.5}{
   \subsection{BUG FIXES}{
     \itemize{
+      \item Added a 'cleanup' script per CRAN policies.
+    }
+  }
+}
+
+
+\section{Changes in sysfonts version 0.5}{
+  \subsection{BUG FIXES}{
+    \itemize{
       \item More robust way to fetch font list.
     }
   }
