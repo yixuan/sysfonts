@@ -75,7 +75,7 @@ search_db = function(family)
 }
 
 # Download font file and return the path of destination
-download_font_file = function(url, repo = "http://fonts.gstatic.com/")
+download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
 {
     ## We need to use curl package here
     
@@ -88,18 +88,18 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/")
             
             ## Try the user-specified repository
             {
-                curl::curl_download(url_repo, dest)
+                curl::curl_download(url_repo, dest, handle = handle)
             },
             
             ## If not successful, use the default one
             error = function(e) {
                 message("font not found in the user-provided repo, try default repo...")
-                curl::curl_download(url, dest)
+                curl::curl_download(url, dest, handle = handle)
             }
             
         )
     } else {
-        curl::curl_download(url, dest)
+        curl::curl_download(url, dest, handle = handle)
     }
     
     dest
@@ -183,7 +183,7 @@ font.families.google = function()
 #' 
 #' }
 font.add.google = function(name, family = name, regular.wt = 400,
-                           bold.wt = 700, repo = "http://fonts.gstatic.com/")
+                           bold.wt = 700, repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
 {   
     name   = as.character(name)[1]
     family = as.character(family)[1]
@@ -209,19 +209,19 @@ font.add.google = function(name, family = name, regular.wt = 400,
     r.url = font$files[[regular]]
     if(is.null(r.url))
         stop(sprintf("regular (weight=%d) variant of '%s' font not found", regular.wt, name))
-    r.file = download_font_file(r.url, repo)
+    r.file = download_font_file(r.url, repo, handle = handle)
     
     ## Download bold font face
     b.url = font$files[[bold]]
-    b.file = if(is.null(b.url)) NULL else download_font_file(b.url, repo)
+    b.file = if(is.null(b.url)) NULL else download_font_file(b.url, repo, handle = handle)
     
     ## Download italic font face
     i.url = font$files[[italic]]
-    i.file = if(is.null(i.url)) NULL else download_font_file(i.url, repo)
+    i.file = if(is.null(i.url)) NULL else download_font_file(i.url, repo, handle = handle)
     
     ## Download bold-italic font face
     bi.url = font$files[[bolditalic]]
-    bi.file = if(is.null(bi.url)) NULL else download_font_file(bi.url, repo)
+    bi.file = if(is.null(bi.url)) NULL else download_font_file(bi.url, repo, handle = handle)
 
     font.add(family, r.file, b.file, i.file, bi.file)
 }
