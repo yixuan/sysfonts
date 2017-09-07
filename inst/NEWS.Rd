@@ -1,6 +1,27 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.7}{
+  \subsection{API CHANGES}{
+    \itemize{
+      \item All previous API functions now have aliases replacing the dots
+            with underscores in the function names, for example \code{font_add()}
+            is equivalent to \code{font.add()}.
+      \item The "underscore" naming is preferred, and the "dot" version will be
+            gradually deprecated.
+            
+    }
+  }
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Added a "\code{handle}" parameter to \code{font.add.google()} in
+            order to support proxies
+            (\href{https://github.com/yixuan/sysfonts/pull/4}{#4}), thanks to
+            \href{https://github.com/Sdurier}{@Sdurier}.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.6}{
   \subsection{NEW FEATURES}{
     \itemize{
