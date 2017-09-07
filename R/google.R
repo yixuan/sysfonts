@@ -146,6 +146,7 @@ font.families.google = function()
 #' @param repo the site that hosts the font files. Default is the official
 #'             repository \code{http://fonts.gstatic.com/} provided by
 #'             Google Fonts.
+#' @param handle a curl handle object passed to \code{curl::curl_download()}.
 #' 
 #' @details There are hundreds of open source fonts in the Google Fonts
 #'          repository (\url{https://fonts.google.com/}).
@@ -183,7 +184,8 @@ font.families.google = function()
 #' 
 #' }
 font.add.google = function(name, family = name, regular.wt = 400,
-                           bold.wt = 700, repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
+                           bold.wt = 700, repo = "http://fonts.gstatic.com/",
+                           handle = curl::new_handle())
 {   
     name   = as.character(name)[1]
     family = as.character(family)[1]
