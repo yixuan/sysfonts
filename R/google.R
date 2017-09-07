@@ -109,6 +109,9 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = 
 
 #' List Font Families Available in Google Fonts
 #' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
+#' 
 #' This function lists family names of the fonts that are currently
 #' available in Google Fonts. When running this function for the first time, 
 #' it may take a few seconds to fetch the font information database.
@@ -116,23 +119,34 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = 
 #' 
 #' @return A character vector of available font family names in Google Fonts.
 #' 
-#' @seealso \code{\link{font.add.google}()}
+#' @seealso \code{\link{font_add_google}()}
 #' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples \dontrun{
-#' font.families.google()
+#' font_families_google()
 #' }
 #' 
-font.families.google = function()
+font_families_google = function()
 {
     google_font_list()$family
 }
 
+#' @rdname font_families_google
+#' @export
+font.families.google = function()
+{
+    message("'font.families.google()' is now renamed to 'font_families_google()'
+The old version still works, but consider using the new name in future code")
+    font_families_google()
+}
 
 #' Load Google Fonts into 'sysfonts'
+#' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
 #' 
 #' This function will search the Google Fonts repository
 #' (\url{https://fonts.google.com/}) for a specified
@@ -160,12 +174,12 @@ font.families.google = function()
 #' 
 #' @export
 #' 
-#' @seealso \code{\link{font.families.google}()}
+#' @seealso \code{\link{font_families_google}()}
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
 #' @examples \dontrun{
-#' font.add.google("Alegreya Sans", "aleg")
+#' font_add_google("Alegreya Sans", "aleg")
 #' 
 #' if(require(showtext))
 #' {
@@ -183,7 +197,7 @@ font.families.google = function()
 #' }
 #' 
 #' }
-font.add.google = function(name, family = name, regular.wt = 400,
+font_add_google = function(name, family = name, regular.wt = 400,
                            bold.wt = 700, repo = "http://fonts.gstatic.com/",
                            handle = curl::new_handle())
 {   
@@ -226,4 +240,15 @@ font.add.google = function(name, family = name, regular.wt = 400,
     bi.file = if(is.null(bi.url)) NULL else download_font_file(bi.url, repo, handle = handle)
 
     font.add(family, r.file, b.file, i.file, bi.file)
+}
+
+#' @rdname font_add_google
+#' @export
+font.add.google = function(name, family = name, regular.wt = 400,
+                           bold.wt = 700, repo = "http://fonts.gstatic.com/",
+                           handle = curl::new_handle())
+{
+    message("'font.add.google()' is now renamed to 'font_add_google()'
+The old version still works, but consider using the new name in future code")
+    font_add_google(name, family, regular.wt, bold.wt, repo, handle)
 }

@@ -37,10 +37,13 @@ add_default_font_paths = function()
 
 #' Get/Set Font Search Paths
 #' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
+#' 
 #' This function gets/sets the search paths for font files.
-#' See \code{\link{font.add}()} for details about how \pkg{sysfonts} looks for
+#' See \code{\link{font_add}()} for details about how \pkg{sysfonts} looks for
 #' font files. There is also a complete example showing the usage of these
-#' functions in the help page of \code{\link{font.add}()}.
+#' functions in the help page of \code{\link{font_add}()}.
 #' 
 #' @param new a character vector indicating the search paths to be
 #'        prepended. If the argument is missing, the function will
@@ -63,7 +66,7 @@ add_default_font_paths = function()
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
-font.paths = function(new)
+font_paths = function(new)
 {
     if(!missing(new))
     {
@@ -75,7 +78,19 @@ font.paths = function(new)
     .pkg.env$.font.path
 }
 
+#' @rdname font_paths
+#' @export
+font.paths = function(new)
+{
+    message("'font.paths()' is now renamed to 'font_paths()'
+The old version still works, but consider using the new name in future code")
+    font_paths(new)
+}
+
 #' List Font Families Loaded by 'sysfonts'
+#' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
 #' 
 #' This function lists font families currently available that can be
 #' used by \pkg{R2SWF} and \pkg{showtext} packages.
@@ -84,44 +99,65 @@ font.paths = function(new)
 #' 
 #' @details By default there are three font families loaded automatically,
 #' i.e., "sans", "serif" and "mono". If one wants to use other fonts,
-#' \code{\link{font.add}()} needs to be called
+#' \code{\link{font_add}()} needs to be called
 #' to register new fonts by specifying a family name and corresponding
-#' font files. See \code{\link{font.add}()} for details about
+#' font files. See \code{\link{font_add}()} for details about
 #' the meaning of "family name" in this context, as well as
 #' a complete example of registering and using a new font.
 #' 
-#' @seealso \code{\link{font.add}()}
+#' @seealso \code{\link{font_add}()}
 #' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
-#' @examples font.families()
+#' @examples font_families()
 #' 
-font.families = function()
+font_families = function()
 {
     names(.pkg.env$.font.list)
 }
 
+#' @rdname font_families
+#' @export
+font.families = function()
+{
+    message("'font.families()' is now renamed to 'font_families()'
+The old version still works, but consider using the new name in future code")
+    font_families()
+}
+
 #' List Font Files Available in the Search Paths
 #' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
+#' 
 #' This function lists font files in the search path that can be
-#' loaded by \code{\link{font.add}()}.
+#' loaded by \code{\link{font_add}()}.
 #' Currently supported formats include TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
 #' @return A character vector of font filenames.
 #' 
-#' @seealso \code{\link{font.paths}()}, \code{\link{font.add}()}
+#' @seealso \code{\link{font_paths}()}, \code{\link{font_add}()}
 #' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
 #' 
-#' @examples font.files()
+#' @examples font_files()
 #' 
+font_files = function()
+{
+    list.files(font_paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE)
+}
+
+#' @rdname font_files
+#' @export
 font.files = function()
 {
-    list.files(font.paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE)
+    message("'font.files()' is now renamed to 'font_files()'
+The old version still works, but consider using the new name in future code")
+    font_files()
 }
 
 # Check whether a specified path points to a font file
@@ -133,7 +169,7 @@ check_font_path = function(path, type)
     
     # If it doesn't exist, search the file in the search paths
     filename = basename(path)
-    search_paths = font.paths()
+    search_paths = font_paths()
     found = FALSE
     for(dir in search_paths)
     {
@@ -150,6 +186,9 @@ check_font_path = function(path, type)
 }
 
 #' Add New Font Families to 'sysfonts'
+#' 
+#' @description The two versions of this function are equivalent, but the
+#' "underscore" naming is preferred.
 #' 
 #' This function registers new font families that can be used by package
 #' \pkg{showtext} and the SWF device in package \pkg{R2SWF}.
@@ -181,7 +220,7 @@ check_font_path = function(path, type)
 #' 
 #' In \pkg{sysfonts} package, there are three default font families, sans, serif, and mono,
 #' each with five font faces as mentioned above. If one wants
-#' to use other font families, the function \code{font.add()} needs to be called
+#' to use other font families, the function \code{font_add()} needs to be called
 #' to register new fonts. Note that the \code{family} argument in this function can be
 #' an arbitrary string that does not need to be the real font name. The specified
 #' family name will be used in functions like \code{par(family = "myfont")}
@@ -191,7 +230,7 @@ check_font_path = function(path, type)
 #' To find the font file of argument \code{regular} (and the same for
 #' other font faces), this function will first check the existence
 #' of the specified path. If not found, file will be searched in the
-#' directories returned by \code{\link{font.paths}()} in turn. If the
+#' directories returned by \code{\link{font_paths}()} in turn. If the
 #' file cannot be found in any of the locations,
 #' an error will be issued.
 #' 
@@ -216,18 +255,18 @@ check_font_path = function(path, type)
 #'
 #' ## Extract and add the directory to search path
 #' untar(basename(ft.url), compressed = "gzip")
-#' font.paths("wqy-microhei")
+#' font_paths("wqy-microhei")
 #'
 #' ## Register this font file and assign the family name "wqy"
 #' ## Other font faces will be the same with regular by default
-#' font.add("wqy", regular = "wqy-microhei.ttc")
+#' font_add("wqy", regular = "wqy-microhei.ttc")
 #' 
 #' ## A more concise way to add font is to give the path directly,
-#' ## without calling font.paths()
-#' # font.add("wqy", "wqy-microhei/wqy-microhei.ttc")
+#' ## without calling font_paths()
+#' # font_add("wqy", "wqy-microhei/wqy-microhei.ttc")
 #' 
 #' ## List available font families
-#' font.families()
+#' font_families()
 #'
 #' if(require(R2SWF))
 #' {
@@ -247,7 +286,7 @@ check_font_path = function(path, type)
 #' setwd(wd)
 #' 
 #' }
-font.add = function(family,
+font_add = function(family,
                     regular,
                     bold = NULL,
                     italic = NULL,
@@ -258,7 +297,7 @@ font.add = function(family,
     
     # Shouldn't modify default fonts
     if((family %in% c("sans", "serif", "mono")) &&
-       (all(c("sans", "serif", "mono") %in% font.families())))
+       (all(c("sans", "serif", "mono") %in% font_families())))
         stop("default font families ('sans', 'serif', 'mono') cannot be modified")
     
     # The maximum length for font family name is 200 bytes
@@ -286,10 +325,24 @@ font.add = function(family,
     .pkg.env$.font.list = lst
     .pkg.env$.font.list.all = c(.pkg.env$.font.list.all, new_family)
     
-    invisible(font.families())
+    invisible(font_families())
 }
 
-# Use font.add() to add default fonts
+#' @rdname font_add
+#' @export
+font.add = function(family,
+                    regular,
+                    bold = NULL,
+                    italic = NULL,
+                    bolditalic = NULL,
+                    symbol = NULL)
+{
+    message("'font.add()' is now renamed to 'font_add()'
+The old version still works, but consider using the new name in future code")
+    font_add(family, regular, bold, italic, bolditalic, symbol)
+}
+
+# Use font_add() to add default fonts
 add_default_fonts = function()
 {
     # packageStartupMessage("Loading fonts...")
@@ -319,9 +372,9 @@ add_default_fonts = function()
     mono.i   = default_fonts_path("Mono",  "Italic")
     mono.bi  = default_fonts_path("Mono",  "BoldItalic")
     
-    font.add("sans",  sans.r,  sans.b,  sans.i,  sans.bi,  NULL)
-    font.add("serif", serif.r, serif.b, serif.i, serif.bi, NULL)
-    font.add("mono",  mono.r,  mono.b,  mono.i,  mono.bi,  NULL)
+    font_add("sans",  sans.r,  sans.b,  sans.i,  sans.bi,  NULL)
+    font_add("serif", serif.r, serif.b, serif.i, serif.bi, NULL)
+    font_add("mono",  mono.r,  mono.b,  mono.i,  mono.bi,  NULL)
     
     # We do some "hacks" here. For default families(sans, serif, mono),
     # we want to set their symbol fonts to be serif-italic
