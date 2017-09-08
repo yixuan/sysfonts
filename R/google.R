@@ -138,8 +138,7 @@ font_families_google = function()
 #' @export
 font.families.google = function()
 {
-    message("'font.families.google()' is now renamed to 'font_families_google()'
-The old version still works, but consider using the new name in future code")
+    deprecate_message_once("font.families.google()", "font_families_google()")
     font_families_google()
 }
 
@@ -248,7 +247,6 @@ font.add.google = function(name, family = name, regular.wt = 400,
                            bold.wt = 700, repo = "http://fonts.gstatic.com/",
                            handle = curl::new_handle())
 {
-    message("'font.add.google()' is now renamed to 'font_add_google()'
-The old version still works, but consider using the new name in future code")
+    deprecate_message_once("font.add.google()", "font_add_google()")
     font_add_google(name, family, regular.wt, bold.wt, repo, handle)
 }

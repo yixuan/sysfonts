@@ -82,8 +82,7 @@ font_paths = function(new)
 #' @export
 font.paths = function(new)
 {
-    message("'font.paths()' is now renamed to 'font_paths()'
-The old version still works, but consider using the new name in future code")
+    deprecate_message_once("fond.paths()", "font_paths()")
     font_paths(new)
 }
 
@@ -122,8 +121,7 @@ font_families = function()
 #' @export
 font.families = function()
 {
-    message("'font.families()' is now renamed to 'font_families()'
-The old version still works, but consider using the new name in future code")
+    deprecate_message_once("font.families()", "font_families()")
     font_families()
 }
 
@@ -155,8 +153,7 @@ font_files = function()
 #' @export
 font.files = function()
 {
-    message("'font.files()' is now renamed to 'font_files()'
-The old version still works, but consider using the new name in future code")
+    deprecate_message_once("font.files()", "font_files()")
     font_files()
 }
 
@@ -337,8 +334,7 @@ font.add = function(family,
                     bolditalic = NULL,
                     symbol = NULL)
 {
-    message("'font.add()' is now renamed to 'font_add()'
-The old version still works, but consider using the new name in future code")
+    deprecate_message_once("font.add()", "font_add()")
     font_add(family, regular, bold, italic, bolditalic, symbol)
 }
 
