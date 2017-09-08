@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.7.1}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed the use of one deprecated function.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.7}{
   \subsection{API CHANGES}{
     \itemize{
