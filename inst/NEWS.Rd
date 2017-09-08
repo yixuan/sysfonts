@@ -14,7 +14,7 @@
   }
   \subsection{NEW FEATURES}{
     \itemize{
-      \item Added a "\code{handle}" parameter to \code{font.add.google()} in
+      \item Added a "\code{handle}" parameter to \code{font_add_google()} in
             order to support proxies
             (\href{https://github.com/yixuan/sysfonts/pull/4}{#4}), thanks to
             \href{https://github.com/Sdurier}{@Sdurier}.
