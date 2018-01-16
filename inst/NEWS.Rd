@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
-\section{Changes in showtext version 0.7.2}{
+\section{Changes in sysfonts version 0.7.2}{
   \subsection{NEW FEATURES}{
     \itemize{
       \item Updated Google Fonts database.
