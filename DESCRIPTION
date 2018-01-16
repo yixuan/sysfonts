@@ -1,8 +1,8 @@
 Package: sysfonts
 Type: Package
 Title: Loading Fonts into R
-Version: 0.7.1
-Date: 2017-09-08
+Version: 0.7.2
+Date: 2018-01-15
 Author: Yixuan Qiu and authors/contributors of the
     included fonts. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>

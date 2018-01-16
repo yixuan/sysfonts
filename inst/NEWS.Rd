@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in showtext version 0.7.2}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed installation problems on Windows.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.7.1}{
   \subsection{BUG FIXES}{
     \itemize{
