@@ -1,5 +1,5 @@
 export(font_paths, font_families, font_files, font_add)
-export(font_add_google, font_families_google)
+export(font_add_google, font_families_google, font_info_google)
 
 # Back-compatibility
 export(font.paths, font.families, font.files, font.add)
