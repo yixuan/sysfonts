@@ -16,6 +16,10 @@ google_font_db = function()
     # key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o"
     # apiurl = sprintf("%s?key=%s", baseurl, key)
     # ret = curl::curl_fetch_memory(apiurl)
+    # webfonts = rawToChar(ret$content)
+    # bz2 = bzfile("webfonts.bz2", "wb")
+    # write(webfonts, bz2)
+    # close(bz2)
 
     ## Download from my own site, faster but not as up-to-date as Google
     db = paste(tempfile(), ".bz2", sep = "")
@@ -44,19 +48,52 @@ google_font_db = function()
     res
 }
 
-google_font_list = function()
+#' Display Information of Available Google Fonts
+#' 
+#' This function returns a data frame that contains the meta data of
+#' font families available in Google Fonts, for example the family name,
+#' available font face variants, the version number, etc. When running this
+#' function for the first time, it may take a few seconds to fetch the
+#' database. This function requires the \pkg{jsonlite} and \pkg{curl} packages.
+#' 
+#' @return A data frame containing meta data of Google Fonts.
+#' 
+#' @seealso \code{\link{font_families_google}()}
+#' 
+#' @export
+#' 
+#' @author Yixuan Qiu <\url{https://statr.me/}>
+#' 
+#' @examples \dontrun{
+#' font_info_google()
+#' }
+#' 
+font_info_google = function()
 {
+    # db is a list parsed from JSON
     db = google_font_db()
-    family = sapply(db[[2]], function(x) x$family)
-    category = sapply(db[[2]], function(x) x$category)
-    
-    data.frame(family = family, category = category,
-               stringsAsFactors = FALSE)
+    # Convert to a readable data frame
+    to_df = function(item)
+    {
+        data.frame(
+            family       = item$family,
+            category     = item$category,
+            num_variants = length(item$variants),
+            variants     = paste(item$variants, collapse = ", "),
+            num_subsets  = length(item$subsets),
+            subsets      = paste(item$subsets, collapse = ", "),
+            version      = item$version,
+            lastModified = item$lastModified,
+            stringsAsFactors = FALSE
+        )
+    }
+    font_df = lapply(db[[2]], to_df)
+    do.call(rbind, font_df)
 }
 
 search_db = function(family)
 {
-    gflist = google_font_list()
+    gflist = font_info_google()
     
     gffamily = gflist$family
     ind = grep(sprintf("^%s$", family), gffamily, ignore.case = TRUE)
@@ -123,7 +160,7 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = 
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples \dontrun{
 #' font_families_google()
@@ -131,7 +168,7 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = 
 #' 
 font_families_google = function()
 {
-    google_font_list()$family
+    font_info_google()$family
 }
 
 #' @rdname font_families_google
@@ -175,7 +212,7 @@ font.families.google = function()
 #' 
 #' @seealso \code{\link{font_families_google}()}
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples \dontrun{
 #' font_add_google("Alegreya Sans", "aleg")
@@ -184,13 +221,13 @@ font.families.google = function()
 #' {
 #'     wd = setwd(tempdir())
 #'     pdf("google-fonts-ex.pdf")
-#'     showtext.begin()
+#'     showtext_begin()
 #'     
 #'     par(family = "aleg")
 #'     plot(0:5,0:5, type="n")
 #'     text(1:4, 1:4, "Alegreya Sans", font=1:4, cex = 2)
 #'     
-#'     showtext.end()
+#'     showtext_end()
 #'     dev.off()
 #'     setwd(wd)
 #' }
