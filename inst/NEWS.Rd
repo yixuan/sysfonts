@@ -1,6 +1,18 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.7.3}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Added function \code{font_info_google()} to retrive meta data of
+            Google Fonts (\href{https://github.com/yixuan/sysfonts/issues/7}{#7}),
+            thanks to
+            \href{https://github.com/camille-s}{@camille-s}.
+      \item Updated Google Fonts database.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.7.2}{
   \subsection{NEW FEATURES}{
     \itemize{
