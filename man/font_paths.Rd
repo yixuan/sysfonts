@@ -41,5 +41,5 @@ Default search paths will be assigned when package is loaded:
 }
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }

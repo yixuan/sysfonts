@@ -36,5 +36,5 @@ font_families()
 \code{\link{font_add}()}
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }

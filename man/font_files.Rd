@@ -28,5 +28,5 @@ font_files()
 \code{\link{font_paths}()}, \code{\link{font_add}()}
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }

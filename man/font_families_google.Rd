@@ -31,5 +31,5 @@ font_families_google()
 \code{\link{font_add_google}()}
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }

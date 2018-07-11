@@ -117,5 +117,5 @@ See \code{\link[graphics]{par}()} for explanation of
          the parameters \code{family} and \code{font}.
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }

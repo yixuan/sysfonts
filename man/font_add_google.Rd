@@ -54,13 +54,13 @@ if(require(showtext))
 {
     wd = setwd(tempdir())
     pdf("google-fonts-ex.pdf")
-    showtext.begin()
+    showtext_begin()
     
     par(family = "aleg")
     plot(0:5,0:5, type="n")
     text(1:4, 1:4, "Alegreya Sans", font=1:4, cex = 2)
     
-    showtext.end()
+    showtext_end()
     dev.off()
     setwd(wd)
 }
@@ -71,5 +71,5 @@ if(require(showtext))
 \code{\link{font_families_google}()}
 }
 \author{
-Yixuan Qiu <\url{http://statr.me/}>
+Yixuan Qiu <\url{https://statr.me/}>
 }
