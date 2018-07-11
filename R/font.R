@@ -65,7 +65,7 @@ add_default_font_paths = function()
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 font_paths = function(new)
 {
     if(!missing(new))
@@ -108,7 +108,7 @@ font.paths = function(new)
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples font_families()
 #' 
@@ -140,7 +140,7 @@ font.families = function()
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples font_files()
 #' 
@@ -236,7 +236,7 @@ check_font_path = function(path, type)
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples \dontrun{
 #' ## Example: download the font file of WenQuanYi Micro Hei,
