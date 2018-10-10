@@ -1,7 +1,7 @@
 ## Object to store the Google Fonts database
 .pkg.env$.google.db = NULL
 
-google_font_db = function()
+google_font_db = function(db_cache = TRUE, handle = curl::new_handle())
 {
     ## We need to use packages jsonlite and curl here
     
@@ -11,24 +11,31 @@ google_font_db = function()
     
     ## Else, download it
 
-    ## Download from Google API, slow and relying on curl
-    # baseurl = "https://www.googleapis.com/webfonts/v1/webfonts"
-    # key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o"
-    # apiurl = sprintf("%s?key=%s", baseurl, key)
-    # ret = curl::curl_fetch_memory(apiurl)
-    # webfonts = rawToChar(ret$content)
-    # bz2 = bzfile("webfonts.bz2", "wb")
-    # write(webfonts, bz2)
-    # close(bz2)
-
-    ## Download from my own site, faster but not as up-to-date as Google
+    ## Download the font database either from Google or from my own site
     db = paste(tempfile(), ".bz2", sep = "")
     db = tryCatch(
     
     ## First try to download the database
     {
-        utils::download.file("http://statr.me/files/webfonts.bz2", db,
-                             quiet = TRUE, mode = "wb")
+        if(!db_cache)
+        {
+            # Fetch font database from Google API,
+            # slow and relying on curl, but most up-to-date
+            baseurl = "https://www.googleapis.com/webfonts/v1/webfonts"
+            key = "AIzaSyDilHY_z1p7WltVNj5gOEHVHD3AIpW8R4o"
+            apiurl = sprintf("%s?key=%s", baseurl, key)
+            ret = curl::curl_fetch_memory(apiurl, handle = handle)
+            # Write the content to a temporary file
+            webfonts = rawToChar(ret$content)
+            bz2 = bzfile(db, "wb")
+            write(webfonts, bz2)
+            close(bz2)
+        } else {
+            # Download from my own site, faster but not as up-to-date as Google
+            curl::curl_download("https://statr.me/files/webfonts.bz2", db,
+                                quiet = TRUE, mode = "wb", handle = handle)
+        }
+        
         db
     },
     
@@ -50,13 +57,20 @@ google_font_db = function()
 
 #' Display Information of Available Google Fonts
 #' 
-#' This function returns a data frame that contains the meta data of
+#' This function returns a data frame that contains the metadata of
 #' font families available in Google Fonts, for example the family name,
 #' available font face variants, the version number, etc. When running this
 #' function for the first time, it may take a few seconds to fetch the
 #' database. This function requires the \pkg{jsonlite} and \pkg{curl} packages.
 #' 
-#' @return A data frame containing meta data of Google Fonts.
+#' @param db_cache whether to obtain font metadata from a cache site. Using cache
+#'                 is typically faster, but not as update-to-date as using the official
+#'                 API. If \code{db_cache} is set to \code{FALSE}, then metadata
+#'                 are retrieved from the Google Fonts API.
+#' @param handle a curl handle object passed to \code{curl::curl_download()} and
+#'               \code{curl::curl_fetch_memory()}.
+#' 
+#' @return A data frame containing metadata of Google Fonts.
 #' 
 #' @seealso \code{\link{font_families_google}()}
 #' 
@@ -68,10 +82,10 @@ google_font_db = function()
 #' font_info_google()
 #' }
 #' 
-font_info_google = function()
+font_info_google = function(db_cache = TRUE, handle = curl::new_handle())
 {
     # db is a list parsed from JSON
-    db = google_font_db()
+    db = google_font_db(db_cache, handle)
     # Convert to a readable data frame
     to_df = function(item)
     {
@@ -91,9 +105,9 @@ font_info_google = function()
     do.call(rbind, font_df)
 }
 
-search_db = function(family)
+search_db = function(family, db_cache, handle)
 {
-    gflist = font_info_google()
+    gflist = font_info_google(db_cache, handle)
     
     gffamily = gflist$family
     ind = grep(sprintf("^%s$", family), gffamily, ignore.case = TRUE)
@@ -154,6 +168,13 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = 
 #' it may take a few seconds to fetch the font information database.
 #' This function requires the \pkg{jsonlite} and \pkg{curl} packages.
 #' 
+#' @param db_cache whether to obtain font metadata from a cache site. Using cache
+#'                 is typically faster, but not as update-to-date as using the official
+#'                 API. If \code{db_cache} is set to \code{FALSE}, then metadata
+#'                 are retrieved from the Google Fonts API.
+#' @param handle a curl handle object passed to \code{curl::curl_download()} and
+#'               \code{curl::curl_fetch_memory()}.
+#' 
 #' @return A character vector of available font family names in Google Fonts.
 #' 
 #' @seealso \code{\link{font_add_google}()}
@@ -166,9 +187,9 @@ download_font_file = function(url, repo = "http://fonts.gstatic.com/", handle = 
 #' font_families_google()
 #' }
 #' 
-font_families_google = function()
+font_families_google = function(db_cache = TRUE, handle = curl::new_handle())
 {
-    font_info_google()$family
+    font_info_google(db_cache, handle)$family
 }
 
 #' @rdname font_families_google
@@ -196,6 +217,10 @@ font.families.google = function()
 #' @param repo the site that hosts the font files. Default is the official
 #'             repository \code{http://fonts.gstatic.com/} provided by
 #'             Google Fonts.
+#' @param db_cache whether to obtain font metadata from a cache site. Using cache
+#'                 is typically faster, but not as update-to-date as using the official
+#'                 API. If \code{db_cache} is set to \code{FALSE}, then metadata
+#'                 are retrieved from the Google Fonts API.
 #' @param handle a curl handle object passed to \code{curl::curl_download()}.
 #' 
 #' @details There are hundreds of open source fonts in the Google Fonts
@@ -235,14 +260,14 @@ font.families.google = function()
 #' }
 font_add_google = function(name, family = name, regular.wt = 400,
                            bold.wt = 700, repo = "http://fonts.gstatic.com/",
-                           handle = curl::new_handle())
+                           db_cache = TRUE, handle = curl::new_handle())
 {   
     name   = as.character(name)[1]
     family = as.character(family)[1]
     repo   = as.character(repo)[1]
     
-    db = google_font_db()
-    ind = search_db(name)
+    db = google_font_db(db_cache, handle)
+    ind = search_db(name, db_cache, handle)
     font = db[[2]][[ind]]
     
     ## Names of type variants to search in the db
@@ -285,5 +310,5 @@ font.add.google = function(name, family = name, regular.wt = 400,
                            handle = curl::new_handle())
 {
     deprecate_message_once("font.add.google()", "font_add_google()")
-    font_add_google(name, family, regular.wt, bold.wt, repo, handle)
+    font_add_google(name, family, regular.wt, bold.wt, repo = repo, handle = handle)
 }
