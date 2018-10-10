@@ -15,4 +15,4 @@ SystemRequirements: zlib, libpng, FreeType
 URL: https://github.com/yixuan/sysfonts
 BugReports: https://github.com/yixuan/sysfonts/issues
 License: GPL-2
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
