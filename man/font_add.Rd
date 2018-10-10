@@ -5,11 +5,11 @@
 \alias{font.add}
 \title{Add New Font Families to 'sysfonts'}
 \usage{
-font_add(family, regular, bold = NULL, italic = NULL, bolditalic = NULL,
-  symbol = NULL)
+font_add(family, regular, bold = NULL, italic = NULL,
+  bolditalic = NULL, symbol = NULL)
 
-font.add(family, regular, bold = NULL, italic = NULL, bolditalic = NULL,
-  symbol = NULL)
+font.add(family, regular, bold = NULL, italic = NULL,
+  bolditalic = NULL, symbol = NULL)
 }
 \arguments{
 \item{family}{a character string of maximum 200-byte size,

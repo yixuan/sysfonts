@@ -4,13 +4,22 @@
 \alias{font_info_google}
 \title{Display Information of Available Google Fonts}
 \usage{
-font_info_google()
+font_info_google(db_cache = TRUE, handle = curl::new_handle())
+}
+\arguments{
+\item{db_cache}{whether to obtain font metadata from a cache site. Using cache
+is typically faster, but not as update-to-date as using the official
+API. If \code{db_cache} is set to \code{FALSE}, then metadata
+are retrieved from the Google Fonts API.}
+
+\item{handle}{a curl handle object passed to \code{curl::curl_download()} and
+\code{curl::curl_fetch_memory()}.}
 }
 \value{
-A data frame containing meta data of Google Fonts.
+A data frame containing metadata of Google Fonts.
 }
 \description{
-This function returns a data frame that contains the meta data of
+This function returns a data frame that contains the metadata of
 font families available in Google Fonts, for example the family name,
 available font face variants, the version number, etc. When running this
 function for the first time, it may take a few seconds to fetch the

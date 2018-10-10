@@ -5,9 +5,18 @@
 \alias{font.families.google}
 \title{List Font Families Available in Google Fonts}
 \usage{
-font_families_google()
+font_families_google(db_cache = TRUE, handle = curl::new_handle())
 
 font.families.google()
+}
+\arguments{
+\item{db_cache}{whether to obtain font metadata from a cache site. Using cache
+is typically faster, but not as update-to-date as using the official
+API. If \code{db_cache} is set to \code{FALSE}, then metadata
+are retrieved from the Google Fonts API.}
+
+\item{handle}{a curl handle object passed to \code{curl::curl_download()} and
+\code{curl::curl_fetch_memory()}.}
 }
 \value{
 A character vector of available font family names in Google Fonts.

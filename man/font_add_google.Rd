@@ -6,7 +6,8 @@
 \title{Load Google Fonts into 'sysfonts'}
 \usage{
 font_add_google(name, family = name, regular.wt = 400, bold.wt = 700,
-  repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
+  repo = "http://fonts.gstatic.com/", db_cache = TRUE,
+  handle = curl::new_handle())
 
 font.add.google(name, family = name, regular.wt = 400, bold.wt = 700,
   repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
@@ -23,6 +24,11 @@ font.add.google(name, family = name, regular.wt = 400, bold.wt = 700,
 \item{repo}{the site that hosts the font files. Default is the official
 repository \code{http://fonts.gstatic.com/} provided by
 Google Fonts.}
+
+\item{db_cache}{whether to obtain font metadata from a cache site. Using cache
+is typically faster, but not as update-to-date as using the official
+API. If \code{db_cache} is set to \code{FALSE}, then metadata
+are retrieved from the Google Fonts API.}
 
 \item{handle}{a curl handle object passed to \code{curl::curl_download()}.}
 }
