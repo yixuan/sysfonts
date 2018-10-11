@@ -146,7 +146,19 @@ font.families = function()
 #' 
 font_files = function()
 {
-    list.files(font_paths(), "\\.tt[cf]$|\\.otf$", ignore.case = TRUE)
+    files = list.files(font_paths(), "\\.tt[cf]$|\\.otf$", full.names = TRUE,
+                       ignore.case = TRUE)
+    fnames = sapply(files, function(f) .Call("font_name", f, PACKAGE = "sysfonts"),
+                    USE.NAMES = FALSE)
+    data.frame(
+        path    = dirname(files),
+        file    = basename(files),
+        family  = fnames[1, ],
+        face    = fnames[2, ],
+        version = fnames[3, ],
+        ps_name = fnames[4, ],
+        stringsAsFactors = FALSE
+    )
 }
 
 #' @rdname font_files
