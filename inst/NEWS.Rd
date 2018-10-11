@@ -1,6 +1,19 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Now \code{font_files()} can report more information of the fonts, for
+            example the family name, font face, version, and PostScript font name,
+            suggested by pull request
+            \href{https://github.com/eddelbuettel/binb/pull/7}{#7} of the \pkg{binb}
+            package.
+      \item Updated Google Fonts database.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.7.3}{
   \subsection{NEW FEATURES}{
     \itemize{
