@@ -134,7 +134,13 @@ font.families = function()
 #' loaded by \code{\link{font_add}()}.
 #' Currently supported formats include TrueType fonts(*.ttf, *.ttc) and OpenType fonts(*.otf).
 #' 
-#' @return A character vector of font filenames.
+#' @return A data frame containing the following information of the font files:
+#' \item{path}{The directory that the font file is located in.}
+#' \item{file}{File name of the font.}
+#' \item{family}{Family name.}
+#' \item{face}{Font face.}
+#' \item{version}{Version of the font.}
+#' \item{ps_name}{PostScript font name.}
 #' 
 #' @seealso \code{\link{font_paths}()}, \code{\link{font_add}()}
 #' 
@@ -142,7 +148,9 @@ font.families = function()
 #' 
 #' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
-#' @examples font_files()
+#' @examples \dontrun{
+#' font_files()
+#' }
 #' 
 font_files = function()
 {
