@@ -42,36 +42,26 @@ SEXP font_name(SEXP font_path)
     char *out_str, *out_str_start;
     SEXP res;
     
+    /* Result: a length-four string vector */
+    /* family, face, version, ps_name */
+    PROTECT(res = Rf_allocVector(STRSXP, 4));
+    
     /* Initialize FreeType library */
     err = FT_Init_FreeType(&(font.library));
     if(err)
     {
-        Rf_error("freetype: unable to initialize freetype, error code %d", err);
+        UNPROTECT(1);
+        return res;
     }
     /* Open font face */
     err = FT_New_Face(font.library, file_path, 0, &(font.face));
     if(err)
     {
         if(font.library) FT_Done_FreeType(font.library);
-        switch(err)
-        {
-            case 0x01:
-                Rf_error("freetype: cannot open resource, error code %d", err);
-                break;
-            case 0x02:
-                Rf_error("freetype: unknown file format, error code %d", err);
-                break;
-            case 0x03:
-                Rf_error("freetype: broken file, error code %d", err);
-                break;
-            default:
-                Rf_error("freetype: unable to load font file, error code %d", err);
-                break;
-        }
+        UNPROTECT(1);
+        return res;
     }
-    /* Result: a length-four string vector */
-    /* family, face, version, ps_name */
-    PROTECT(res = Rf_allocVector(STRSXP, 4));
+    
     /* Get the number of name entries in the font */
     num_entries = FT_Get_Sfnt_Name_Count(font.face);
     for(i = 0; i < num_entries; i++)
