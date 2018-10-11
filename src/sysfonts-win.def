@@ -2,3 +2,4 @@ LIBRARY sysfonts.dll
 EXPORTS
  load_font
  clean_font
+ font_name

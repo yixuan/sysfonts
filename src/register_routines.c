@@ -6,6 +6,7 @@
 static R_CallMethodDef call_methods[] = {
     {"load_font",  (DL_FUNC) &load_font,  1},
     {"clean_font", (DL_FUNC) &clean_font, 1},
+    {"font_name",  (DL_FUNC) &font_name,  1},
     {NULL, NULL, 0}
 };
 
