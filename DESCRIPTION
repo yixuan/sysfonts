@@ -1,8 +1,8 @@
 Package: sysfonts
 Type: Package
 Title: Loading Fonts into R
-Version: 0.8
-Date: 2018-10-11
+Version: 0.8.1
+Date: 2020-05-06
 Author: Yixuan Qiu and authors/contributors of the
     included fonts. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
@@ -15,4 +15,4 @@ SystemRequirements: zlib, libpng, FreeType
 URL: https://github.com/yixuan/sysfonts
 BugReports: https://github.com/yixuan/sysfonts/issues
 License: GPL-2
-RoxygenNote: 6.1.0
+RoxygenNote: 7.1.0

@@ -1,6 +1,19 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.1}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Updated Google Fonts database.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Updated the download method for installation on Windows.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8}{
   \subsection{NEW FEATURES}{
     \itemize{
