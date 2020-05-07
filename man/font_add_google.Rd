@@ -5,12 +5,24 @@
 \alias{font.add.google}
 \title{Load Google Fonts into 'sysfonts'}
 \usage{
-font_add_google(name, family = name, regular.wt = 400, bold.wt = 700,
-  repo = "http://fonts.gstatic.com/", db_cache = TRUE,
-  handle = curl::new_handle())
+font_add_google(
+  name,
+  family = name,
+  regular.wt = 400,
+  bold.wt = 700,
+  repo = "http://fonts.gstatic.com/",
+  db_cache = TRUE,
+  handle = curl::new_handle()
+)
 
-font.add.google(name, family = name, regular.wt = 400, bold.wt = 700,
-  repo = "http://fonts.gstatic.com/", handle = curl::new_handle())
+font.add.google(
+  name,
+  family = name,
+  regular.wt = 400,
+  bold.wt = 700,
+  repo = "http://fonts.gstatic.com/",
+  handle = curl::new_handle()
+)
 }
 \arguments{
 \item{name}{name of the font that will be searched in Google Fonts}
