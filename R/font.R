@@ -362,15 +362,11 @@ font.add = function(family,
 add_default_fonts = function()
 {
     # packageStartupMessage("Loading fonts...")
-
-    lib.loc = if("sysfonts" %in% loadedNamespaces())
-                  dirname(getNamespaceInfo("sysfonts", "path"))
-              else NULL
     
     default_fonts_path = function(family, face)
     {
         system.file("fonts", sprintf("Liberation%s-%s.ttf", family, face),
-                    package = "sysfonts", lib.loc = lib.loc)
+                    package = "sysfonts")
     }
 
     sans.r   = default_fonts_path("Sans",  "Regular")
