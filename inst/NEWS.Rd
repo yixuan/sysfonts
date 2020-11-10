@@ -1,6 +1,16 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.2}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Added a new system font path for macOS, suggested by Athanasia Mowinckel
+            (\href{https://github.com/yixuan/sysfonts/issues/13}{#13}).
+      \item Updated Google Fonts database.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.1}{
   \subsection{NEW FEATURES}{
     \itemize{
