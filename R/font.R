@@ -22,7 +22,8 @@ add_default_font_paths = function()
     } else if(.Platform$OS.type == "unix") {
         if(Sys.info()["sysname"] == "Darwin")
         {
-            path = list.dirs(c("/Library/Fonts",
+            path = list.dirs(c("/System/Library/Fonts",
+                               "/Library/Fonts",
                                "~/Library/Fonts"))
         } else {
             path = list.dirs(c("/usr/share/fonts",
