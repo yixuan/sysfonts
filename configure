@@ -2592,7 +2592,7 @@ else
   ;;
   *)
   as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-as_dummy="$PATH:/usr/local/bin:ext/bin:ext:/sw/bin:/opt/bin"
+as_dummy="$PATH:/usr/bin:/usr/local/bin:/opt/bin"
 for as_dir in $as_dummy
 do
   IFS=$as_save_IFS
@@ -2831,7 +2831,7 @@ $as_echo "no" >&6; }
 fi
 
 
-    if test "x$HAVE_FREETYPE_CONFIG" == "xyes"; then
+    if test  "x$HAVE_FREETYPE_CONFIG" = "xyes" ; then
         FT_CPPFLAGS="`freetype-config --cflags`"
         FT_LIBS="`freetype-config --libs`"
     else
