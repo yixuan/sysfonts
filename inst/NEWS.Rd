@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.3}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed a string comparison issue in the configure script
+            (\href{https://github.com/yixuan/sysfonts/issues/14}{#14}).
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.2}{
   \subsection{NEW FEATURES}{
     \itemize{

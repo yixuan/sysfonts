@@ -1,4 +1,4 @@
-AC_INIT(sysfonts, 0.1, yixuan.qiu@cos.name)
+AC_INIT(sysfonts, 0.8, yixuan.qiu@cos.name)
 
 # Find R_HOME and set CC/CFLAGS/CPPFLAGS
 : ${R_HOME=`R RHOME`}
