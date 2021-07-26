@@ -1,6 +1,20 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.4}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Updated Google Fonts database.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Added a new search path in the configure script
+            (\href{https://github.com/yixuan/sysfonts/issues/17}{#17}).
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.3}{
   \subsection{BUG FIXES}{
     \itemize{
