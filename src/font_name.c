@@ -118,7 +118,7 @@ SEXP font_name(SEXP font_path)
                 out_str_start = out_str;
                 
                 riconv = Riconv_open("UTF-8", "UTF-16BE");
-                err = Riconv(riconv, &in_str, &in_str_size, &out_str, &out_str_size);
+                err = (FT_Error) Riconv(riconv, &in_str, &in_str_size, &out_str, &out_str_size);
                 Riconv_close(riconv);
 
                 if(!err)
@@ -126,7 +126,7 @@ SEXP font_name(SEXP font_path)
                     SET_STRING_ELT(
                         res,
                         j,
-                        Rf_mkCharLenCE(out_str_start, out_str - out_str_start, CE_UTF8)
+                        Rf_mkCharLenCE(out_str_start, (int) (out_str - out_str_start), CE_UTF8)
                     );
                 }
                 

@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.5}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed the configure script, thanks to Prof. Brian Ripley.
+      \item Fixed compiler warnings.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.4}{
   \subsection{NEW FEATURES}{
     \itemize{
