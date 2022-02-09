@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.6}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Supported UCRT on Windows, thanks to Tomas Kalibera and Uwe Ligges.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.5}{
   \subsection{BUG FIXES}{
     \itemize{
