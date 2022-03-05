@@ -1,6 +1,21 @@
 \name{NEWS}
 \title{News for Package "sysfonts"}
 
+\section{Changes in sysfonts version 0.8.7}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Updated Google Fonts database.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Updated the documentation for \code{font_add_google()}.
+      \item Fixed the bug that \code{db_cache = FALSE} is not effective in
+            the second call of \code{font_add_google()}.
+    }
+  }
+}
+
 \section{Changes in sysfonts version 0.8.6}{
   \subsection{BUG FIXES}{
     \itemize{
