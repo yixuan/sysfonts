@@ -27,7 +27,9 @@ font.add.google(
 \arguments{
 \item{name}{name of the font that will be searched in Google Fonts}
 
-\item{family}{family name of the font that will be used in R}
+\item{family}{specifies the family name of this font in R. This can be any string,
+not necessarily the same as \code{name}. The value of this parameter
+will be used in R plotting functions. See the example code below.}
 
 \item{regular.wt}{font weight for the regular font face, usually 400}
 
@@ -54,7 +56,7 @@ family name, download the proper font files, and then add them to \pkg{sysfonts}
 This function requires the \pkg{jsonlite} and \pkg{curl} packages.
 }
 \details{
-There are hundreds of open source fonts in the Google Fonts
+There are thousands of open source fonts in the Google Fonts
          repository (\url{https://fonts.google.com/}).
          This function will try to search the font family specified
          by the \code{name} argument, and then automatically

@@ -211,7 +211,9 @@ font.families.google = function()
 #' This function requires the \pkg{jsonlite} and \pkg{curl} packages.
 #' 
 #' @param name name of the font that will be searched in Google Fonts
-#' @param family family name of the font that will be used in R
+#' @param family specifies the family name of this font in R. This can be any string,
+#'               not necessarily the same as \code{name}. The value of this parameter
+#'               will be used in R plotting functions. See the example code below.
 #' @param regular.wt font weight for the regular font face, usually 400
 #' @param bold.wt font weight for the bold font face, usually 700
 #' @param repo the site that hosts the font files. Default is the official
@@ -223,7 +225,7 @@ font.families.google = function()
 #'                 are retrieved from the Google Fonts API.
 #' @param handle a curl handle object passed to \code{curl::curl_download()}.
 #' 
-#' @details There are hundreds of open source fonts in the Google Fonts
+#' @details There are thousands of open source fonts in the Google Fonts
 #'          repository (\url{https://fonts.google.com/}).
 #'          This function will try to search the font family specified
 #'          by the \code{name} argument, and then automatically
