@@ -5,8 +5,8 @@ google_font_db = function(db_cache = TRUE, handle = curl::new_handle())
 {
     ## We need to use packages jsonlite and curl here
     
-    ## If database already exists, return it
-    if(!is.null(.pkg.env$.google.db))
+    ## If database already exists and db_cache = TRUE, return it
+    if(!is.null(.pkg.env$.google.db) && db_cache)
         return(.pkg.env$.google.db)
     
     ## Else, download it
@@ -269,7 +269,8 @@ font_add_google = function(name, family = name, regular.wt = 400,
     repo   = as.character(repo)[1]
     
     db = google_font_db(db_cache, handle)
-    ind = search_db(name, db_cache, handle)
+    # Use db_cache = TRUE since the database has already been updated in google_font_db()
+    ind = search_db(name, db_cache = TRUE, handle = handle)
     font = db[[2]][[ind]]
     
     ## Names of type variants to search in the db
