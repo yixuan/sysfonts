@@ -180,6 +180,13 @@ font.files = function()
 # Check whether a specified path points to a font file
 check_font_path = function(path, type)
 {
+    # Sanity check
+    if(length(path) != 1)
+    {
+        warning(sprintf("'%s' should be a length-one vector, using the first element", type))
+        path = as.character(path[1])
+    }
+
     # If it really exists
     if(file.exists(path) && !file.info(path)$isdir)
         return(normalizePath(path))
