@@ -3,3 +3,4 @@ EXPORTS
  load_font
  clean_font
  font_name
+ R_init_sysfonts

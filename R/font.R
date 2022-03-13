@@ -157,8 +157,7 @@ font_files = function()
 {
     files = list.files(font_paths(), "\\.tt[cf]$|\\.otf$", full.names = TRUE,
                        ignore.case = TRUE)
-    fnames = sapply(files, function(f) .Call("font_name", f, PACKAGE = "sysfonts"),
-                    USE.NAMES = FALSE)
+    fnames = sapply(files, function(f) .Call(font_name, f), USE.NAMES = FALSE)
     data.frame(
         path    = dirname(files),
         file    = basename(files),
@@ -322,20 +321,20 @@ font_add = function(family,
     if(nchar(family, type = "bytes") > 200)
         stop("family name is too long (max 200 bytes)")
     
-    r = .Call("load_font", check_font_path(regular, "regular"), PACKAGE = "sysfonts");
+    r = .Call("load_font", check_font_path(regular, "regular"))
     
     # If other font faces are not specified, use the regular one
     b = if(is.null(bold)) r
-        else .Call("load_font", check_font_path(bold, "bold"), PACKAGE = "sysfonts");
+        else .Call(load_font, check_font_path(bold, "bold"))
     
     i = if(is.null(italic)) r
-        else .Call("load_font", check_font_path(italic, "italic"), PACKAGE = "sysfonts");
+        else .Call(load_font, check_font_path(italic, "italic"))
     
     bi = if(is.null(bolditalic)) r
-         else .Call("load_font", check_font_path(bolditalic, "bolditalic"), PACKAGE = "sysfonts");
+         else .Call(load_font, check_font_path(bolditalic, "bolditalic"))
     
     s = if(is.null(symbol)) r
-        else .Call("load_font", check_font_path(symbol, "symbol"), PACKAGE = "sysfonts");
+        else .Call(load_font, check_font_path(symbol, "symbol"))
     
     lst = .pkg.env$.font.list
     new_family = list(regular = r, bold = b, italic = i, bolditalic = bi, symbol = s)
@@ -408,7 +407,7 @@ clean_fonts = function()
     lst = unique(unlist(.pkg.env$.font.list.all))
     for(i in seq_along(lst))
     {
-        .Call("clean_font", lst[[i]], PACKAGE = "sysfonts")
+        .Call(clean_font, lst[[i]])
     }
     .pkg.env$.font.list = list()
     .pkg.env$.font.list.all = list()

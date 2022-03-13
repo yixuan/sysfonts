@@ -1,3 +1,4 @@
+useDynLib(sysfonts, .registration = TRUE)
 export(font_paths, font_families, font_files, font_add)
 export(font_add_google, font_families_google, font_info_google)
 
